@@ -3,12 +3,30 @@ package resource.gui.frames;
 import java.awt.Color;
 
 public final class Colors {
-	public static final Color PRIMARY 	= Utils.hexDecode( "26c6da" );
-	public static final Color P_LIGHT 	= Utils.hexDecode( "6ff9ff" );
+	private static final int PROGRESS	= 10;
+	public static final Color PRIMARY 	= Utils.hexDecode( "607d8b" );
+	public static final Color P_LIGHT 	= Utils.hexDecode( "8eacbb" );
+	public static final Color P_DARK	= Utils.hexDecode( "34515e" );
+	
+	public static final Color SECONDARY = Utils.hexDecode( "f44336" );
+	public static final Color S_LIGTH	= Utils.hexDecode( "ff7961" );
+	public static final Color S_DARK	= Utils.hexDecode( "ba000d" );
+	
+	public static final Color P_FONT	= Utils.hexDecode( "000000" );
+	public static final Color S_FONT	= Utils.hexDecode( "ffffff" );
 	
 	
-	
+	/**
+	 * Clase con utilidades para el color
+	 * @author Marck-G
+	 *
+	 */
 	final static class Utils{
+		/**
+		 * Decodificador de colores hexadecimales completos
+		 * @param color
+		 * @return
+		 */
 		private static Color decode( String color ) {
 			String[] colorsUnit = new String[3];
 			int index = 0;
@@ -34,8 +52,48 @@ public final class Colors {
 				return decode( hexColor );
 			}else {
 				return decode( hexColor.substring( 1 ) );
-			}
-				
+			}				
+		}
+		/**
+		 * Oscurece un color en value menos
+		 * @param color
+		 * @param value
+		 * @return color oscurecido en value veces
+		 */
+		public static Color darkness( Color color, int value ) {
+			return new Color( 	( color.getRed() - value < 0 )?0:color.getRed() - value,
+								( color.getGreen() - value < 0 )?0:color.getGreen() - value,  
+								( color.getBlue() - value < 0 )?0:color.getBlue() - value );
+		}
+		
+		/**
+		 * Oscurece el color según la constante
+		 * @param color
+		 * @return color
+		 */
+		public static Color darkness( Color color ) {
+			return darkness( color, PROGRESS );
+		}
+		
+		/**
+		 * Aclara un color según el valor que recibe
+		 * @param color
+		 * @param value
+		 * @return color
+		 */
+		public static Color lighter( Color color, int value ) {
+			return new Color( 	(color.getRed() + value > 255)?255:color.getRed() + value,
+								(color.getGreen() + value > 255)?255:color.getGreen() + value,
+								(color.getBlue() + value > 255)?255:color.getBlue() + value );
+		}
+		
+		/**
+		 * Aclara un color según la constante
+		 * @param color
+		 * @return color
+		 */
+		public static Color lighter( Color color ) {
+			return lighter( color, PROGRESS );
 		}
 	}
 }
