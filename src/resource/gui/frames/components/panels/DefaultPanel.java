@@ -14,6 +14,7 @@ import resource.gui.constants.Colors;
  *
  */
 public class DefaultPanel extends JPanel {
+	private static final long serialVersionUID = 8249260350208382008L;
 
 	public DefaultPanel() {
 		setBackground( Colors.PRIMARY );

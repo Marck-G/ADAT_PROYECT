@@ -7,7 +7,6 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import resource.gui.frames.components.buttons.DefaultButton;
 import resource.gui.frames.components.panels.DefaultPanel;
@@ -18,25 +17,37 @@ import resource.gui.frames.components.panels.DefaultPanel;
  */
 public class MenuPrincipal extends JFrame {
 	
+	private static final long serialVersionUID = 3285524243457872984L;
+	private DefaultButton btnExit;
 	
 	public MenuPrincipal() {
 		setUndecorated( true );
 		setContentPane( new DefaultPanel( new BorderLayout()));
 		setDefaultCloseOperation( EXIT_ON_CLOSE );
-		JButton btn = new DefaultButton( "Salir" );
-		btn.addActionListener( new ActionListener() {
+		components();
+		
+		events();
+		
+		
+		setSize(500, 300);
+		setLocationRelativeTo( null );
+		setVisible(true);
+	}
+	private void components() {
+		// btn de salida
+		btnExit = new DefaultButton("SALIR");
+		
+		getContentPane().add(btnExit, BorderLayout.SOUTH);
+	}
+	
+	private void events() {
+		btnExit.addActionListener( new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				dispose();
-				
+				dispose();				
 			}
 		});
-		btn.setFocusable( false );
-		getContentPane().add(btn, BorderLayout.SOUTH);
-		setSize(200, 300);
-		setLocationRelativeTo( null );
-		setVisible(true);
 	}
 	
 	/**

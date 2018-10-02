@@ -8,7 +8,7 @@ public final class Colors {
 	public static final Color P_LIGHT 	= Utils.hexDecode( "8eacbb" );
 	public static final Color P_DARK	= Utils.hexDecode( "34515e" );
 	
-	public static final Color SECONDARY = Utils.hexDecode( "f44336" );
+	public static final Color SECONDARY	= Utils.hexDecode( "f44336" );
 	public static final Color S_LIGTH	= Utils.hexDecode( "ff7961" );
 	public static final Color S_DARK	= Utils.hexDecode( "ba000d" );
 	
