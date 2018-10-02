@@ -5,7 +5,8 @@ package resource.gui.frames.components.panels;
 
 import java.awt.LayoutManager;
 import javax.swing.JPanel;
-import resource.gui.frames.Colors;
+
+import resource.gui.constants.Colors;
 
 /**
  * Panel principal

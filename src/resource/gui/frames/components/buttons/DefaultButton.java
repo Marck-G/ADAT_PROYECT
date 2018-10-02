@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 
-import resource.gui.frames.Colors;
+import resource.gui.constants.Colors;
 
 /**
  * @author Marck-G

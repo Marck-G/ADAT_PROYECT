@@ -1,4 +1,4 @@
-package resource.gui.frames;
+package resource.gui.constants;
 
 import java.awt.Color;
 
