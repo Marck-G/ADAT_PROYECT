@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import resource.gui.frames.components.buttons.DefaultButton;
 
 /**
  * @author Marck-G
@@ -19,8 +20,9 @@ public class MenuPrincipal extends JFrame {
 	
 	public MenuPrincipal() {
 		setUndecorated( true );
+		getContentPane().setBackground( Colors.P_DARK );
 		setDefaultCloseOperation( EXIT_ON_CLOSE );
-		JButton btn = new JButton("salir");
+		JButton btn = new DefaultButton( "Salir" );
 		btn.addActionListener( new ActionListener() {
 			
 			@Override
@@ -30,7 +32,6 @@ public class MenuPrincipal extends JFrame {
 			}
 		});
 		btn.setFocusable( false );
-		btn.setBackground( Colors.S_DARK);
 		getContentPane().add(btn, BorderLayout.SOUTH);
 		setSize(200, 300);
 		setLocationRelativeTo( null );

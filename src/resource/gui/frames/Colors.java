@@ -21,7 +21,7 @@ public final class Colors {
 	 * @author Marck-G
 	 *
 	 */
-	final static class Utils{
+	public final static class Utils{
 		/**
 		 * Decodificador de colores hexadecimales completos
 		 * @param color
