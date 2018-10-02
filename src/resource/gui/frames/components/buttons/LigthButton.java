@@ -1,7 +1,5 @@
-/**
- * 
- */
 package resource.gui.frames.components.buttons;
+
 
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -12,18 +10,13 @@ import javax.swing.JButton;
 
 import resource.gui.constants.Colors;
 
-/**
- * @author Marck-G
- *
- */
-public class DefaultButton extends JButton {
-	
-	private static final long serialVersionUID = -8499643363411696697L;
+public class LigthButton extends JButton {
+	private static final long serialVersionUID = 2336267315766067100L;
 
-	public DefaultButton( String text ) {
+	public LigthButton( String text ) {
 		super( text );
-		setBackground( Colors.SECONDARY );
-		setForeground( Colors.S_FONT );
+		setBackground( Colors.S_LIGTH );
+		setForeground( Colors.P_FONT );
 		setPreferredSize( new Dimension(100, 40));
 		setFocusable( false );
 		setBorder(null);
@@ -36,7 +29,7 @@ public class DefaultButton extends JButton {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setBackground( Colors.Utils.lighter( Colors.PRIMARY, 60 ) );
-				setForeground( Colors.P_FONT );
+				setForeground( Colors.SECONDARY );
 			}
 
 			/* (non-Javadoc)
@@ -52,11 +45,12 @@ public class DefaultButton extends JButton {
 			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
-				setBackground( Colors.SECONDARY );
-				setForeground( Colors.S_FONT );
+				setBackground( Colors.S_LIGTH );
+				setForeground( Colors.P_FONT );
 			}
 			
 			
 		});
+		
 	}
 }
