@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import resource.gui.frames.components.buttons.DefaultButton;
+import resource.gui.frames.components.panels.DefaultPanel;
 
 /**
  * @author Marck-G
@@ -20,7 +21,7 @@ public class MenuPrincipal extends JFrame {
 	
 	public MenuPrincipal() {
 		setUndecorated( true );
-		getContentPane().setBackground( Colors.P_DARK );
+		setContentPane( new DefaultPanel( new BorderLayout()));
 		setDefaultCloseOperation( EXIT_ON_CLOSE );
 		JButton btn = new DefaultButton( "Salir" );
 		btn.addActionListener( new ActionListener() {
