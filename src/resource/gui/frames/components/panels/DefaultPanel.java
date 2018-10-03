@@ -9,7 +9,8 @@ import javax.swing.JPanel;
 import resource.gui.constants.Colors;
 
 /**
- * Panel principal
+ * Panel personalizado
+ * {@link JPanel}
  * @author Marck-G
  *
  */

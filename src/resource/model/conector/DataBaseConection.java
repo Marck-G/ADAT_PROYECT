@@ -2,7 +2,12 @@ package resource.model.conector;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
+/**
+ * Clase abstracta que se encarga de la conexión genérica <br>
+ * a una base de datos
+ * @author Marck-G
+ *
+ */
 public abstract class DataBaseConection {
 	protected String	url;
 	protected String	username;

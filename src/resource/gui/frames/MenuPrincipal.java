@@ -21,6 +21,7 @@ import resource.gui.frames.dialog.DefaultDialog;
 import resource.gui.resources.img.ImageManager;
 
 /**
+ * Pantalla inicial de la aplicación
  * @author Marck-G
  *
  */

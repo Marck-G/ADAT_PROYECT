@@ -1,7 +1,11 @@
 package resource.gui.constants;
 
 import java.awt.Color;
-
+/**
+ * Clase con constantes de color y funciones relacionadas con ellos
+ * @author Marck-G
+ *
+ */
 public final class Colors {
 	private static final int PROGRESS	= 10;
 	public static final Color PRIMARY 	= Utils.hexDecode( "607d8b" );

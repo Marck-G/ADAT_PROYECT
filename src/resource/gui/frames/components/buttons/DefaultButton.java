@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import resource.gui.constants.Colors;
 
 /**
+ * Boton básico personalizado
+ * {@link JButton}
  * @author Marck-G
  *
  */

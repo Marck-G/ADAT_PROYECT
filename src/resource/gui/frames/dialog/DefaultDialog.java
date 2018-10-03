@@ -18,11 +18,15 @@ import resource.gui.frames.components.buttons.DefaultButton;
 import resource.gui.frames.components.panels.DefaultPanel;
 
 /**
+ * Dialogo básico personalizado <br>
+ * {@link JDialog}
  * @author Marck-G
  *
  */
 public class DefaultDialog extends JDialog {
 	
+	private static final long serialVersionUID = -1338117604488459773L;
+
 	/**
 	 * Muesta un dialogo por defecto basico 
 	 * @param msg

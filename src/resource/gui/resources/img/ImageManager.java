@@ -2,6 +2,14 @@ package resource.gui.resources.img;
 
 import java.net.URL;
 
+/**
+ * Clase orientada al manejo de imágenes locales <br>
+ * <ul> 
+ * 		<li> Importación de imágenes </li>
+ * </ul>
+ * @author Marck-G
+ *
+ */
 public final class ImageManager {
 	
 	private ImageManager() {}

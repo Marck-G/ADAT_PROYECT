@@ -2,25 +2,29 @@ package resource.gui.frames.components.inputs;
 
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import resource.gui.constants.Colors;
-import resource.gui.frames.components.panels.DefaultPanel;
-
+/**
+ * JTextField personalizado
+ * {@link JTextField}
+ * @author Marck-G
+ *
+ */
 public class DefaultInput extends JTextField {
 	private static final long serialVersionUID = -6673266511671355909L;
-	private Container panel;
-	
+	/**
+	 * 
+	 * Recibe el panel que lo contiene para aceder a las características del panel
+	 * @param panel
+	 */
 	public DefaultInput(Container panel) {
-		this.panel = panel;
 		setBorder( null );
 		setBackground( panel.getBackground() );
 		setForeground( panel.getForeground() );

@@ -7,11 +7,17 @@ import java.io.InputStreamReader;
 
 import resource.gui.frames.dialog.DefaultDialog;
 
+/**
+ * Clase encargada de establecer la conexión con la base de datos <br/>
+ *  y de guradar la información de la conexion en un archivo
+ * @author mk_dev
+ *
+ */
 public class ConectionManager {
 	
 	private final static String CONECTION_FILE = "_conexion.con";
 	
-	public DataBaseConection conector;
+	private DataBaseConection conector;
 	
 	
 	public void	leerConexion() {

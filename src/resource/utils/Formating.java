@@ -4,7 +4,8 @@
 package resource.utils;
 
 /**
- * @author mk_dev
+ * Clase orientada al formateo de Strings
+ * @author Marck-G
  *
  */
 public final class Formating {
