@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import resource.gui.frames.components.buttons.DefaultButton;
 import resource.gui.frames.components.buttons.LigthButton;
 import resource.gui.frames.components.panels.DefaultPanel;
+import resource.gui.frames.dialog.DefaultDialog;
 import resource.gui.resources.img.ImageManager;
 
 /**
@@ -113,6 +114,25 @@ public class MenuPrincipal extends JFrame {
 				dispose();				
 			}
 		});
+		
+		
+		
+		btnBiblioteca.addActionListener( new  action( this ) );
+	}
+	
+	class action implements ActionListener {
+		
+		private JFrame frame;
+		
+		public action(JFrame ventana) {
+			frame = ventana;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			new DefaultDialog( "Intento de acceder a la biblioteca", frame );
+			
+		}
 	}
 	
 	/**
