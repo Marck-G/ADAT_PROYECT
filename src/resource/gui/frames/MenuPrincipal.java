@@ -71,7 +71,7 @@ public class MenuPrincipal extends JFrame {
 		gbConst.fill 		= GridBagConstraints.VERTICAL;
 		gbConst.gridx 		= 0;
 		gbConst.gridy 		= 0;
-		gbConst.gridheight = 2;
+		gbConst.gridheight 	= 2;
 		gbConst.weighty 	= 10;
 		gbConst.insets		= new Insets(5, 0, 10, 10);
 		center.add( btnBiblioteca, gbConst );
