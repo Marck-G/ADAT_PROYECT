@@ -107,8 +107,7 @@ public class MenuPrincipal extends JFrame {
 	}
 	
 	private void events() {
-		btnExit.addActionListener( new ActionListener() {
-			
+		btnExit.addActionListener( new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();				
@@ -117,23 +116,9 @@ public class MenuPrincipal extends JFrame {
 		
 		
 		
-		btnBiblioteca.addActionListener( new  action( this ) );
+		
 	}
 	
-	class action implements ActionListener {
-		
-		private JFrame frame;
-		
-		public action(JFrame ventana) {
-			frame = ventana;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			new DefaultDialog( "Intento de acceder a la biblioteca", frame );
-			
-		}
-	}
 	
 	/**
 	 * @param args

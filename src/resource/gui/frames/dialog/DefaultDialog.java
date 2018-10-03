@@ -28,7 +28,7 @@ public class DefaultDialog extends JDialog {
 	 * @param msg
 	 * @param ventana
 	 */
-	public DefaultDialog( String msg, JFrame ventana ) {
+	public DefaultDialog( String msg ) {
 		setUndecorated( true );
 		setDefaultCloseOperation( DISPOSE_ON_CLOSE );
 		setModal( true );
@@ -43,7 +43,7 @@ public class DefaultDialog extends JDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				dispose();				
+				dispose();
 			}
 		});
 		panelSur.add( btnAceptar );
@@ -55,7 +55,7 @@ public class DefaultDialog extends JDialog {
 		getContentPane().add( panelSur, BorderLayout.SOUTH );
 		
 		pack();
-		setLocationRelativeTo( ventana );
+		setLocationRelativeTo( null );
 		setVisible( true );
 	}
 	

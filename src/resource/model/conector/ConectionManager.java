@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 
+import resource.gui.frames.dialog.DefaultDialog;
+
 public class ConectionManager {
 	
 	private final static String CONECTION_FILE = "_conexion.con";
@@ -17,7 +19,7 @@ public class ConectionManager {
 			BufferedReader reader = new BufferedReader( new InputStreamReader( new  FileInputStream( CONECTION_FILE ) ) );
 		} catch (FileNotFoundException e) {
 			// No se ha encontrado el archivo por lo que el usuario deberá crear una conexión
-			
+			new DefaultDialog("No se ha configurado ninguna conexión");
 		}
 		
 	}
