@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
 import resource.gui.constants.Colors;
+import resource.gui.constants.Fonts;
 /**
  * JTextField personalizado
  * {@link JTextField}
@@ -36,6 +37,7 @@ public class DefaultInput extends JTextField {
 		setPreferredSize( new Dimension( 100, 40));
 		setSelectionColor( Colors.SECONDARY );
 		setSelectedTextColor( Colors.P_FONT );
+		setFont( Fonts.ARIAL );
 		
 		addMouseListener( new MouseAdapter() {
 
