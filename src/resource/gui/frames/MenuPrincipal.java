@@ -5,15 +5,19 @@ package resource.gui.frames;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import resource.gui.constants.Fonts;
 import resource.gui.frames.components.buttons.DefaultButton;
 import resource.gui.frames.components.buttons.LigthButton;
 import resource.gui.frames.components.panels.DefaultPanel;
@@ -21,7 +25,7 @@ import resource.gui.frames.dialog.DefaultDialog;
 import resource.gui.resources.img.ImageManager;
 
 /**
- * Pantalla inicial de la aplicación
+ * Pantalla inicial de la aplicaciÃ³n
  * @author Marck-G
  *
  */
@@ -37,6 +41,7 @@ public class MenuPrincipal extends JFrame {
 		setUndecorated( true );
 		setContentPane( new DefaultPanel( new BorderLayout()));
 		setDefaultCloseOperation( EXIT_ON_CLOSE );
+				
 		components();
 		
 		events();
@@ -50,6 +55,7 @@ public class MenuPrincipal extends JFrame {
 	private void components() {
 		// btn de salida
 		btnExit = new DefaultButton("SALIR");
+		btnExit.setFont( Fonts.BTN_FONT );
 		
 		//btn Biblioteca
 		btnBiblioteca = new LigthButton("");
@@ -101,8 +107,8 @@ public class MenuPrincipal extends JFrame {
 	}
 	
 	private void tooltips() {
-		btnBiblioteca.setToolTipText( "Acceder al área de la biblioteca" );
-		btnAlumnos.setToolTipText( "Acceder al área de alumnos");
+		btnBiblioteca.setToolTipText( "Acceder al Ã¡rea de la biblioteca" );
+		btnAlumnos.setToolTipText( "Acceder al Ã¡rea de alumnos");
 		btnOtros.setToolTipText( "Opciones" );
 		btnExit.setToolTipText( "Cerrar el programa" );
 	}
@@ -113,9 +119,7 @@ public class MenuPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();				
 			}
-		});
-		
-		
+		});		
 		
 		
 	}
@@ -126,7 +130,6 @@ public class MenuPrincipal extends JFrame {
 	 */
 	public static void main(String[] args) {
 		new MenuPrincipal();
-
 	}
 
 }

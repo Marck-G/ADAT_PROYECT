@@ -24,4 +24,8 @@ public final class Formating {
 		out += "</html>";
 		return out;
 	}
+	
+	public static void main(String[] args) {
+		System.out.println( toHTML(  "Esto es es una prueba \n de formateo de html \n formateado." ) );
+	}
 }
