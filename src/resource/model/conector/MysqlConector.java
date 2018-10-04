@@ -3,7 +3,7 @@ package resource.model.conector;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MysqlConector extends DataBaseConection {
+class MysqlConector extends DataBaseConection {
 		private static MysqlConector instance;
 		
 		

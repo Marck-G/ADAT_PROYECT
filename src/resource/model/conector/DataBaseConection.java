@@ -8,7 +8,7 @@ import java.sql.SQLException;
  * @author Marck-G
  *
  */
-public abstract class DataBaseConection {
+ abstract class DataBaseConection {
 	protected String	url;
 	protected String	username;
 	protected String	pass;
