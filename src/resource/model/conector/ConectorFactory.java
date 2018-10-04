@@ -4,7 +4,7 @@ package resource.model.conector;
  * <br/>
  * 
  * Clase encargada de establecer la conexión con la base de datos <br/>
- * {@link DataBaseConection}
+ * @see {@link DataBaseConection}
  * @author Marck-G
  *
  */

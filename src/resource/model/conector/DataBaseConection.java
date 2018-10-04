@@ -1,7 +1,11 @@
 package resource.model.conector;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 /**
  * Clase abstracta que se encarga de la conexión genérica <br>
  * a una base de datos
@@ -9,13 +13,19 @@ import java.sql.SQLException;
  *
  */
  abstract class DataBaseConection {
-	protected String	url;
-	protected String	username;
-	protected String	pass;
-	protected Connection connection;
+	private static final int MAX_HISTORIAL = 10;
+	protected 	String	url;
+	protected 	String	username;
+	protected 	String	pass;
+	protected 	Connection connection;
+	private 	ArrayList< PreparedStatement > historial;
+	
+	DataBaseConection() {
+		historial = new ArrayList< PreparedStatement >();
+	}
 	
 	/**
-	 * establecemos los parametros necesarios
+	 * Establecemos los par&aacute;metros necesarios
 	 * @param url
 	 * @param username
 	 * @param pass
@@ -26,6 +36,7 @@ import java.sql.SQLException;
 		this.url = url;
 		this.username = username;
 		this.pass = pass;
+		
 	}
 	
 	/**
@@ -35,6 +46,62 @@ import java.sql.SQLException;
 	 */
 	public abstract void conect() throws ClassNotFoundException, SQLException ;
 	
+	public ResultSet executeSql( String sql ) throws SQLException {
+		PreparedStatement p = connection.prepareStatement( sql );
+		// añadimos al historial
+		historial.add( p );
+		//comprobamos el numero de elementos
+		checkHistorial();
+		return p.executeQuery();
+	}
+	
+	/**
+	 * Ejecuta un PreaparedStatement
+	 * @param pr
+	 * @return ResulSet con los datos de la ejecuci&oacute;n
+	 * @throws SQLException
+	 */
+	public ResultSet executeStatement( PreparedStatement pr ) throws SQLException {
+		// añadimos al historial
+		historial.add( pr );
+		//comprobamos el numero de elementos
+		checkHistorial();
+		return pr.executeQuery();
+	}
+	/**
+	 * Recuperar un peraredStatement ya ejecutado
+	 * @param index
+	 * @return preparedStatement
+	 */
+	public PreparedStatement getStatement( int index ) {
+		return historial.get( index );
+	}
+	
+	/**
+	 * Recupera el &uacute;ltimo PreparedStatement ejecutado
+	 * @return PreparedStatement 
+	 */
+	public PreparedStatement getLastStatement() {
+		return getStatement( historial.size() - 1 );
+	}
+	
+	private void checkHistorial() {
+		int leng;
+		Iterator< PreparedStatement > it = historial.iterator();
+		// comprobamos que no se pase del maximo de elementos
+		// si es asi borramos los ultimos que son los primeros
+		while (it.hasNext() && ( leng = historial.size() ) > MAX_HISTORIAL ) {
+			PreparedStatement pre = (PreparedStatement) it.next();
+			it.remove();
+		}
+	}
+	/**
+	 * Cierra la conexi&oacute;n
+	 * @throws SQLException
+	 */
+	public void close() throws SQLException {
+		connection.close();
+	}
 
 	/**
 	 * @return the url

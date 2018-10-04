@@ -20,12 +20,13 @@ import javax.swing.JFrame;
 import resource.gui.constants.Fonts;
 import resource.gui.frames.components.buttons.DefaultButton;
 import resource.gui.frames.components.buttons.LigthButton;
+import resource.gui.frames.components.inputs.PasswordInput;
 import resource.gui.frames.components.panels.DefaultPanel;
 import resource.gui.frames.dialog.DefaultDialog;
 import resource.gui.resources.img.ImageManager;
 
 /**
- * Pantalla inicial de la aplicaciÃ³n
+ * Pantalla inicial de la aplicaci&oacute;n
  * @author Marck-G
  *
  */
@@ -53,6 +54,8 @@ public class MenuPrincipal extends JFrame {
 		setVisible(true);
 	}
 	private void components() {
+		getContentPane().setFont( Fonts.ARIAL );
+		
 		// btn de salida
 		btnExit = new DefaultButton("SALIR");
 		btnExit.setFont( Fonts.BTN_FONT );

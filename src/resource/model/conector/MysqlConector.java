@@ -3,6 +3,12 @@ package resource.model.conector;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Conecto para MYSQL <br> 
+ * @author Marck-G
+ * @see {@link DataBaseConection}
+ *
+ */
 class MysqlConector extends DataBaseConection {
 		private static MysqlConector instance;
 		
@@ -15,7 +21,9 @@ class MysqlConector extends DataBaseConection {
 			return ( instance == null )? new MysqlConector(): instance;
 		}
 		
-		private MysqlConector() {}
+		private MysqlConector() {
+			super();
+		}
 				
 		@Override
 		public void conect() throws ClassNotFoundException, SQLException {

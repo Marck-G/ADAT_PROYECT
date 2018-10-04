@@ -15,7 +15,7 @@ import resource.gui.constants.Fonts;
 
 /**
  * JPasswordField Personalizada
- * {@link JPasswordField}
+ * @see {@link JPasswordField}
  * @author Marck-G
  *
  */

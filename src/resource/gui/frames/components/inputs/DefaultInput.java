@@ -14,7 +14,7 @@ import resource.gui.constants.Colors;
 import resource.gui.constants.Fonts;
 /**
  * JTextField personalizado
- * {@link JTextField}
+ * @see {@link JTextField}
  * @author Marck-G
  *
  */
