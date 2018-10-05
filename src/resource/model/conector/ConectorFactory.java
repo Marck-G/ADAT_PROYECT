@@ -13,6 +13,8 @@ public class ConectorFactory {
 	public static final int MYSQL_DB	= 36;
 	public static final int SQLLITE_DB	= 40;
 	
+	private static DataBaseConection baseActiva;
+	
 	private ConectorFactory() {
 	}
 	
@@ -33,5 +35,20 @@ public class ConectorFactory {
 	}
 	
 	
+	/**
+	 * Se establece la base activa
+	 * @param id
+	 */
+	public static void setDataBase( int id ) {
+		baseActiva = makeConector( id );
+	}
+	
+	/**
+	 * 
+	 * @return instancia activa de base de datos
+	 */
+	public static DataBaseConection getBaseActiva() {
+		return baseActiva;
+	}
 	
 }

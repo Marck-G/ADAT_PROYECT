@@ -12,7 +12,7 @@ import java.util.Iterator;
  * @author Marck-G
  *
  */
- abstract class DataBaseConection {
+ public abstract class DataBaseConection {
 	private static final int MAX_HISTORIAL = 10;
 	protected 	String	url;
 	protected 	String	username;
