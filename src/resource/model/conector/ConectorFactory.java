@@ -11,7 +11,7 @@ package resource.model.conector;
 public class ConectorFactory {
 	// ====| CONSTANTES DE BASE DE DATOS |====
 	public static final int MYSQL_DB	= 36;
-	public static final int SQLLITE_DB	= 40;
+	public static final int SQLITE_DB	= 40;
 	
 	private static DataBaseConection baseActiva;
 	
@@ -27,7 +27,7 @@ public class ConectorFactory {
 		switch ( id ) {
 		case MYSQL_DB:
 			return MysqlConector.instance();
-		case SQLLITE_DB:
+		case SQLITE_DB:
 			return null;
 		default:
 			return null;
