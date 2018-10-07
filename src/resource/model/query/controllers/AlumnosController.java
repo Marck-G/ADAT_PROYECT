@@ -115,6 +115,13 @@ public class AlumnosController {
 		return p.executeUpdate();		
 	}
 	
+	/**
+	 * Añade alumnos a la tabla
+	 * 
+	 * @param alumnos
+	 * @return n&uacute;mero de alumnos a&ntilde;adidos
+	 * @throws SQLException
+	 */
 	public int addAlumno( ArrayList<Alumno> alumnos ) throws SQLException {
 		int added = 0;
 		
