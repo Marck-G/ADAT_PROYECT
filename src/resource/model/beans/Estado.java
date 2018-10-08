@@ -25,4 +25,15 @@ public enum Estado {
 	 public String estado() {
 		 return estado;
 	 }
+	 
+	 @Override
+	public String toString() {
+		return estado;
+	}
+	 
+	 public static Estado getEstadoFrom( String estadoStr ) {
+		 for ( Estado e : Estado.values() ) {
+			
+		}
+	 }
 }

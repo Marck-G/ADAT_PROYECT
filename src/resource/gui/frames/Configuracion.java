@@ -48,7 +48,7 @@ public final class Configuracion extends JDialog {
 		JLabel l = new JLabel("Selecciona una base de datos: ");
 		l.setFont( Fonts.BTN_FONT);
 		p.add( l );
-		mysql = new JRadioButton("Mysql");
+		mysql = new JRadioButton("MySQL");
 		mysql.setBackground( getContentPane().getBackground() );
 		mysql.setForeground( getContentPane().getForeground() );
 		mysql.setFont( Fonts.BTN_FONT );

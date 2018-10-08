@@ -19,6 +19,8 @@ public final class Colors {
 	public static final Color P_FONT	= Utils.hexDecode( "000000" );
 	public static final Color S_FONT	= Utils.hexDecode( "ffffff" );
 	
+	public static final Color BACKGROUND = Utils.hexDecode( "AEE3FC" );
+	
 	public static final Color INPUTS_BORDER = Utils.hexDecode( "ff1744" );
 	
 	
