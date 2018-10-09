@@ -31,9 +31,16 @@ public enum Estado {
 		return estado;
 	}
 	 
+	 /**
+	  * Devuelve un estado según el string que vuelve 
+	  * @param estadoStr
+	  * @return
+	  */
 	 public static Estado getEstadoFrom( String estadoStr ) {
 		 for ( Estado e : Estado.values() ) {
-			
+			if( estadoStr.equals( e.estado() ) )
+				return e;
 		}
+		 return null;
 	 }
 }

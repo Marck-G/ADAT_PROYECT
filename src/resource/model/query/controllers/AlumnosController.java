@@ -32,6 +32,8 @@ public class AlumnosController {
 	// ========| FIN SINGLETON |=======
 	
 	private DataBaseConection conection;
+	private PreparedStatement addAlum;
+	private PreparedStatement rmAlum;
 	
 	private AlumnosController() {
 		// cogemos la única base activa 
@@ -104,15 +106,17 @@ public class AlumnosController {
 	 * @return 0 si hay algun error
 	 * @throws SQLException
 	 */
-	public int addAlumno( Alumno alum ) throws SQLException {
-		String sql = "INSERT INTO alumno VALUES(?,?,?,?)";
-		PreparedStatement p = conection.getConnection().prepareStatement( sql );
+	public void addAlumno( Alumno alum ) throws SQLException {
+		if ( addAlum == null ) {
+			String sql = "INSERT INTO alumno VALUES(?,?,?,?)";
+			addAlum = conection.getConnection().prepareStatement( sql );
+		}
 		// metemos los datos
-		p.setString( 1,  alum.getDni() );
-		p.setString( 2,	 alum.getNombre() );
-		p.setString( 3,  alum.getAp1() );
-		p.setString( 4,  alum.getAp2() );
-		return p.executeUpdate();		
+		addAlum.setString( 1, alum.getDni() );
+		addAlum.setString( 2, alum.getNombre() );
+		addAlum.setString( 3, alum.getAp1() );
+		addAlum.setString( 4, alum.getAp2() );
+		addAlum.addBatch();		
 	}
 	
 	/**
@@ -122,13 +126,55 @@ public class AlumnosController {
 	 * @return n&uacute;mero de alumnos a&ntilde;adidos
 	 * @throws SQLException
 	 */
-	public int addAlumno( ArrayList<Alumno> alumnos ) throws SQLException {
-		int added = 0;
-		
+	public void addAlumno( ArrayList<Alumno> alumnos ) throws SQLException {
 		for (Alumno a : alumnos) {
-			added += addAlumno( a );
+			addAlumno(a);
 		}
-		return added;
 	}
-
+	
+	/**
+	 * Elimina un alumno
+	 * @param dni
+	 * @throws SQLException
+	 */
+	public void removeAlumno( String dni ) throws SQLException {
+		if( rmAlum == null ) {
+			String sql = "DELETE FROM ALUMNO WHERE dni = ?";
+			rmAlum = conection.getConnection().prepareStatement( sql );
+		}
+		rmAlum.setString( 1, dni ); 
+		rmAlum.addBatch();
+	}
+	
+	/**
+	 * Elimina un alumno
+	 * @param alumno
+	 * @throws SQLException
+	 */
+	public void removeAlumno( Alumno alumno ) throws SQLException {
+		removeAlumno( alumno.getDni() );
+	}
+	
+	/**
+	 * Elimina varios alumnos
+	 * @param alumnos
+	 * @throws SQLException
+	 */
+	public void removeAlumno( ArrayList<Alumno> alumnos ) throws SQLException{
+		for (Alumno alumno : alumnos) {
+			removeAlumno( alumno );
+		}
+	}
+	
+	/**
+	 * Ejecutamos la elimninaciones
+	 * @throws SQLException
+	 */
+	public void removeAlumno() throws SQLException {
+		if ( rmAlum != null ) {
+			rmAlum.executeBatch();
+			rmAlum.clearBatch();
+		}
+	}
+	
 }

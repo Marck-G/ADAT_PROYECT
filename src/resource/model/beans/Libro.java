@@ -11,6 +11,7 @@ package resource.model.beans;
 public class Libro {
 	
 	private String codigo;
+	private String isbn;
 	private String titulo;
 	private String autor;
 	private String editorial;
@@ -25,7 +26,7 @@ public class Libro {
 	 * @param asignatura
 	 * @param estado
 	 */
-	public Libro(String codigo, String titulo, String autor, String editorial, String asignatura, Estado estado) {
+	public Libro(String codigo, String isbn, String titulo, String autor, String editorial, String asignatura, Estado estado) {
 		super();
 		this.codigo = codigo;
 		this.titulo = titulo;
@@ -33,6 +34,7 @@ public class Libro {
 		this.editorial = editorial;
 		this.asignatura = asignatura;
 		this.estado = estado;
+		this.isbn =isbn;
 	}
 	
 	
@@ -78,6 +80,15 @@ public class Libro {
 	@Override
 	public String toString() {
 		return titulo;
+	}
+
+
+
+	/**
+	 * @return the isbn
+	 */
+	public String getIsbn() {
+		return isbn;
 	}
 
 
