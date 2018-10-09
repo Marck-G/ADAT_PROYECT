@@ -18,7 +18,7 @@ class MysqlConector extends DataBaseConection {
 		 * @return instancia única de MysqlConector
 		 */
 		public static MysqlConector instance() {
-			return ( instance == null )? new MysqlConector(): instance;
+			return ( instance == null )? instance = new MysqlConector(): instance;
 		}
 		
 		private MysqlConector() {

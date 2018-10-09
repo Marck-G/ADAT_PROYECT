@@ -27,7 +27,7 @@ public final class Configuracion extends JDialog {
 	private static Configuracion instancia;
 	
 	public static Configuracion instancia() {
-		return ( instancia == null )? new Configuracion(): instancia;
+		return ( instancia == null )? instancia = new Configuracion(): instancia;
 	}
 	
 	private JRadioButton mysql;

@@ -27,7 +27,7 @@ public class AlumnosController {
 	 * @return Instancia activa de AlumnosController
 	 */
 	public static AlumnosController instancia() {
-		return ( instancia == null )? new AlumnosController(): instancia;
+		return ( instancia == null )? instancia = new AlumnosController(): instancia;
 	}
 	// ========| FIN SINGLETON |=======
 	

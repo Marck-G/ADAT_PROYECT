@@ -16,7 +16,7 @@ public class LibrosController {
 	private final static String DATOS_LIBRO = " codigo,isbn, titulo, autor, editorial, asignatura, estado ";
 	
 	public static LibrosController instancia() {
-		return ( instancia == null )? new LibrosController():instancia; 
+		return ( instancia == null )? instancia = new LibrosController():instancia; 
 	}
 	
 	private DataBaseConection connection;
