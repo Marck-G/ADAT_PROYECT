@@ -38,7 +38,7 @@ public enum Estado {
 	  */
 	 public static Estado getEstadoFrom( String estadoStr ) {
 		 for ( Estado e : Estado.values() ) {
-			if( estadoStr.equals( e.estado() ) )
+			if( estadoStr.equalsIgnoreCase( e.estado() ) )
 				return e;
 		}
 		 return null;
