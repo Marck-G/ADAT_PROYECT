@@ -1,5 +1,6 @@
 package resource.gui.frames.components.buttons;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,6 +17,7 @@ public class ToggleButton extends JButton{
 		refresView();
 		setFocusable( false );
 		setBorder( null );
+		setPreferredSize( new Dimension(100, 40 ) );
 		
 		addActionListener(new ActionListener() {
 			
@@ -46,16 +48,12 @@ public class ToggleButton extends JButton{
 		activated = ( activated )? false:true;
 	}
 	
-	
-	
-	public static void main(String[] args) {
-		JFrame w = new JFrame( "Prueba" );
-		ToggleButton b = new ToggleButton("btn");
-		b.setBackground( Colors.BACKGROUND);
-		
-		w.getContentPane().add(b, "South");
-		w.setSize(200, 100);
-		w.setDefaultCloseOperation( w.DISPOSE_ON_CLOSE );
-		w.setVisible( true );
+	/**
+	 * 
+	 * @return activated
+	 */
+	public boolean isActivated() {
+		return activated;
 	}
+	
 }
