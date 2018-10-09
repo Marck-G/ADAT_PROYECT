@@ -26,7 +26,14 @@ public class Libro {
 	 * @param asignatura
 	 * @param estado
 	 */
-	public Libro(String codigo, String isbn, String titulo, String autor, String editorial, String asignatura, Estado estado) {
+	public Libro(
+				String codigo, 
+				String isbn, 
+				String titulo, 
+				String autor, 
+				String editorial, 
+				String asignatura, 
+				Estado estado ) {
 		super();
 		this.codigo = codigo;
 		this.titulo = titulo;
@@ -35,6 +42,38 @@ public class Libro {
 		this.asignatura = asignatura;
 		this.estado = estado;
 		this.isbn =isbn;
+	}
+	
+	/**
+	 * 
+	 * @return array con los datos del Libro actual
+	 */
+	public String[] oArray() {
+		String[] out = new String[7];
+		out[0] = codigo;
+		out[1] = isbn;
+		out[2] = titulo;
+		out[3] = autor;
+		out[4] = editorial;
+		out[5] = asignatura;
+		out[6] = estado.estado();
+		return null;
+	}
+	
+	/**
+	 * Parsea un array de datos a libro 
+	 * @param data
+	 * @return Libro parseado
+	 */
+	public static Libro toLibro( String[] data ) {
+		return new Libro(
+				data[0],
+				data[1],
+				data[2],
+				data[3],
+				data[4],
+				data[5],
+				Estado.getEstadoFrom( data[6] )	);
 	}
 	
 	

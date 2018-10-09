@@ -24,6 +24,28 @@ public class Alumno {
 		this.ap1 = ap1;
 		this.ap2 = ap2;
 	}
+	
+	/**
+	 * Parsea un array de datos a un Alumno
+	 * @param data
+	 * @return Alumno parseado
+	 */
+	public static Alumno toAlumno( String[] data ) {
+		return new Alumno( data[0], data[1], data[2], data[3] );
+	}
+	
+	/**
+	 * convierte el objeto en un array de datos
+	 * @return String[]
+	 */
+	public String[] toArray() {
+		String [] out = new String[4];
+		out[0] = dni;
+		out[1] = nombre;
+		out[2] = ap1;
+		out[3] = ap2;
+		return out;
+	}
 
 	/**
 	 * @return the dni

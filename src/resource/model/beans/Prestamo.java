@@ -1,5 +1,6 @@
 package resource.model.beans;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -27,6 +28,23 @@ public class Prestamo {
 		this.devuelto			= devuleto;
 	}
 	
+	/**
+	 * Convertimos el objeto Prestamo a un array con toda la infomaci&oacute;n
+	 * @return
+	 */
+	public String[] toArray() {
+		SimpleDateFormat d = new SimpleDateFormat("dd/MM/yy");
+		String[] out = new String[7];
+		out[0] = libro.getCodigo();
+		out[1] = libro.getTitulo();
+		out[2] = alumno.getDni();
+		out[3] = alumno.getNombre() + " " + alumno.getAp1();
+		out[4] = d.format( fecha_alta );
+		out[5] = d.format( fecha_devolucion );
+		out[6] = (devuelto)?"Devuelto":"No devuelto";
+		return out;
+	}
+	
 	@Override
 	public String toString() {
 		return libro.toString();
@@ -35,14 +53,14 @@ public class Prestamo {
 	/**
 	 * @return the libros
 	 */
-	public Libro getLibros() {
+	public Libro getLibro() {
 		return libro;
 	}
 	/**
 	 * @param libros the libros to set
 	 */
-	public void setLibros(Libro libros) {
-		this.libro = libros;
+	public void setLibro(Libro libro) {
+		this.libro = libro;
 	}
 	/**
 	 * @return the alumno
