@@ -1,29 +1,43 @@
 package resource.gui.frames;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 
-import resource.gui.constants.Colors;
 import resource.gui.constants.Fonts;
+import resource.gui.frames.components.buttons.LigthButton;
 import resource.gui.frames.components.inputs.DefaultInput;
+import resource.gui.frames.components.panels.DefaultPanel;
+import resource.gui.frames.components.tables.DefaultTable;
+import resource.gui.resources.img.ImageManager;
 import resource.model.beans.Alumno;
+import resource.model.conector.ConectorFactory;
+import resource.model.exceptions.EmptyTableException;
+import resource.model.query.controllers.AlumnosController;
 
 public class GestionAlumnos extends JFrame {
 	
+	private static final long serialVersionUID = -900998335468872868L;
+	
 	private JTable tabla;
 	private DefaultTableModel model;
-	private DefaultInput dni;
-	private DefaultInput nombre;
-	private DefaultInput apellido1;
-	private DefaultInput apellido2;
+	private LigthButton	 searh;
+	private LigthButton	 add;
+	private LigthButton  remove;
+	private DefaultInput tfSearch;
 	
-	public GestionAlumnos() {
+	public GestionAlumnos() throws SQLException, EmptyTableException {
 		setDefaultCloseOperation( DISPOSE_ON_CLOSE );
 		
 		componentes();
@@ -34,40 +48,70 @@ public class GestionAlumnos extends JFrame {
 	}
 	
 	
-	private void componentes() {
-		
-		Alumno[] al = new Alumno[10];
-		for (int i = 0; i < al.length; i++) {
-			int dni = (int) Math.floor( Math.random() * 99999999 + 1000000 );
-			al[i] = new Alumno(
-					dni + (new Character( (char)(dni % 255 + 97 ))).toString() +"",
-					"Alumno " + dni % 20, 
-					"Primer Apellido",
-					"Segundo Apellido");
-		}
-		
-		String[][] data = new String[10][4];
+	private void componentes() throws SQLException, EmptyTableException {
+		//lamad al controlador 
+		ArrayList<Alumno> als = AlumnosController.instancia().getAlumnos();
+		Alumno[] al = new Alumno[3];
+		als.toArray( al );
+		String[][] data = new String[ als.size()][al.length ];
 		for (int i = 0; i < data.length; i++) {
 			data[i] = al[i].toArray();
 		}
+		System.out.println(als);
+		//fin controlador
 		model = new DefaultTableModel( data, new String[] { "DNI", "Nombre", "Primer Apellido", "Segundo Apellido" });
-		tabla = new JTable( model );
-		tabla.setBackground( Colors.S_LIGTH );
-		tabla.setSelectionBackground( Colors.PRIMARY );
-		tabla.setFont( Fonts.ARIAL  );
-		tabla.setShowVerticalLines( false );
-		tabla.setRowHeight( 30 );
-		tabla.getTableHeader().setBackground( Colors.PRIMARY );
-		tabla.getTableHeader().setFont( tabla.getFont());
-		tabla.setGridColor( Colors.S_DARK );
-		tabla.setSelectionForeground( Colors.S_FONT );
-		tabla.setAutoResizeMode( JTable.AUTO_RESIZE_ALL_COLUMNS);
-		tabla.getTableHeader().setReorderingAllowed(false);
+		tabla = new DefaultTable( model );
 		JScrollPane p = new JScrollPane( tabla );
 		getContentPane().add( p, "Center");
+		
+		searh = new LigthButton( "" );
+		searh.setIcon( new ImageIcon( ImageManager.getImage("search.png") ) );
+		
+		
+		
+		DefaultPanel este = new DefaultPanel( new GridBagLayout() );
+		GridBagConstraints c = new GridBagConstraints();
+		tfSearch = new DefaultInput( este );
+		tfSearch.setFont( Fonts.BTN_FONT );
+		c.gridx 	= 0;
+		c.gridy		= 0;
+		c.gridwidth = 2;
+		c.weightx	= 3;
+		c.insets	= new Insets(0, 10, 0, 10);
+		c.fill		= GridBagConstraints.HORIZONTAL;
+		este.add(tfSearch, c );
+
+		c.gridx 	= 0;
+		c.gridy		= 1;
+		c.gridwidth = 2;
+		c.weightx	= 1;
+		c.insets	= new Insets(0, 0, 0, 0);
+		c.fill		= GridBagConstraints.HORIZONTAL;
+		este.add( searh, c );
+		
+		add = new LigthButton("");
+		add.setIcon( new ImageIcon( ImageManager.getImage("add.png") ));
+		c.gridx 	= 0;
+		c.gridy		= 2;
+		c.gridwidth = 1;
+		c.fill		= GridBagConstraints.HORIZONTAL;
+		este.add( add, c );
+		
+		remove = new LigthButton( "" );
+		remove.setIcon( new ImageIcon( ImageManager.getImage( "rm.png" ) ) );
+		c.gridx 	= 1;
+		c.gridy		= 2;
+		c.fill 		= GridBagConstraints.HORIZONTAL;
+		este.add( remove, c );
+		
+		getContentPane().add(este, "East" );
+		
+		
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException, EmptyTableException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+		ConectorFactory.setDataBase( ConectorFactory.MYSQL_DB );
+		ConectorFactory.getBaseActiva().conect();
 		new GestionAlumnos();
 		
 	}

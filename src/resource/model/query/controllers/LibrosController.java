@@ -103,7 +103,7 @@ public class LibrosController {
 		addLibros.setString( 4, libro.getAutor() );
 		addLibros.setString( 5, libro.getEditorial() );
 		addLibros.setString( 6, libro.getAsignatura() );
-		addLibros.setString( 7, libro.getEstado().estado() );
+		addLibros.setString( 7, libro.getEstado().estado().toUpperCase() );
 		addLibros.addBatch();
 	}
 	

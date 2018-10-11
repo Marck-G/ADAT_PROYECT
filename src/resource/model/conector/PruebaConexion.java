@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class PruebaConexion {
- 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
+ 	public static void main(String[] args) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
  		ConectorFactory.setDataBase( ConectorFactory.MYSQL_DB );
 		DataBaseConection b = ConectorFactory.getBaseActiva() ;
 		b.conect();

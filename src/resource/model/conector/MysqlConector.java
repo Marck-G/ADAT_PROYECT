@@ -26,7 +26,7 @@ class MysqlConector extends DataBaseConection {
 		}
 				
 		@Override
-		public void conect() throws ClassNotFoundException, SQLException {
+		public void conect() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 			Class.forName( "com.mysql.jdbc.Driver" );
 			connection = DriverManager.getConnection( url, username, pass );
 		}

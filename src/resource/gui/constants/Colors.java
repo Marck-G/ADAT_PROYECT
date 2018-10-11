@@ -19,6 +19,13 @@ public final class Colors {
 	public static final Color P_FONT	= Utils.hexDecode( "000000" );
 	public static final Color S_FONT	= Utils.hexDecode( "ffffff" );
 	
+	public static final Color L_GREEN	= Utils.hexDecode( "36F485" );
+	public static final Color D_GREEN	= Utils.hexDecode( "1A7440" );
+	public static final Color LL_GREEN	= Utils.hexDecode( "dcedc8" );
+	
+	public static final Color D_BLUE	= Utils.hexDecode( "176BC1" );
+	public static final Color LIME		= Utils.hexDecode( "E2F64F" );
+	
 	public static final Color BACKGROUND = Utils.hexDecode( "AEE3FC" );
 	
 	public static final Color INPUTS_BORDER = Utils.hexDecode( "ff1744" );

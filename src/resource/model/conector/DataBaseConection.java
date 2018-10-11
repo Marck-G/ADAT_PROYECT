@@ -43,8 +43,10 @@ import java.util.Iterator;
 	 * Conecta con la base de datos
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public abstract void conect() throws ClassNotFoundException, SQLException ;
+	public abstract void conect() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException ;
 	
 	public ResultSet executeSql( String sql ) throws SQLException {
 		PreparedStatement p = connection.prepareStatement( sql );

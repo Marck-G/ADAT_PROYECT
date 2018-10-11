@@ -61,7 +61,7 @@ public class AlumnosController {
 			//lo guardamos en el array de salida
 			out.add( l );
 		}
-		if ( out.isEmpty() )
+		if ( !out.isEmpty() )
 			return out;			
 		throw new EmptyTableException();
 	}
