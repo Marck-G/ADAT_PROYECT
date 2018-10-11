@@ -17,6 +17,7 @@ public class DefaultTable extends JTable {
 		setSelectionBackground( Colors.D_GREEN );
 		setSelectionForeground( Colors.S_FONT );
 		setShowVerticalLines( false );
+		setGridColor( Colors.D_GREEN );
 		setRowHeight( 30 );
 		getTableHeader().setBackground( Colors.D_GREEN );
 		getTableHeader().setForeground( Colors.S_FONT);

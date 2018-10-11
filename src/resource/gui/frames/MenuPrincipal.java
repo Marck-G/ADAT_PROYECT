@@ -19,6 +19,7 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import resource.controller.MenuPrincipalController;
 import resource.gui.constants.Fonts;
 import resource.gui.frames.components.buttons.DefaultButton;
 import resource.gui.frames.components.buttons.LigthButton;
@@ -40,6 +41,7 @@ public class MenuPrincipal extends JFrame {
 	private LigthButton 	btnBiblioteca;
 	private LigthButton		btnAlumnos;
 	private LigthButton		btnOtros;
+	private MenuPrincipalController controller;
 	
 	public MenuPrincipal() {
 		setUndecorated( true );
@@ -51,6 +53,7 @@ public class MenuPrincipal extends JFrame {
 		events();
 		
 		tooltips();
+		
 		
 		setSize(430, 300);
 		setLocationRelativeTo( null );
@@ -112,6 +115,30 @@ public class MenuPrincipal extends JFrame {
 		getContentPane().add(center, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * @return the btnExit
+	 */
+	public DefaultButton getBtnExit() {
+		return btnExit;
+	}
+	/**
+	 * @return the btnBiblioteca
+	 */
+	public LigthButton getBtnBiblioteca() {
+		return btnBiblioteca;
+	}
+	/**
+	 * @return the btnAlumnos
+	 */
+	public LigthButton getBtnAlumnos() {
+		return btnAlumnos;
+	}
+	/**
+	 * @return the btnOtros
+	 */
+	public LigthButton getBtnOtros() {
+		return btnOtros;
+	}
 	private void tooltips() {
 		btnBiblioteca.setToolTipText( "Acceder al Ã¡rea de la biblioteca" );
 		btnAlumnos.setToolTipText( "Acceder al Ã¡rea de alumnos");
@@ -119,26 +146,9 @@ public class MenuPrincipal extends JFrame {
 		btnExit.setToolTipText( "Cerrar el programa" );
 	}
 	
-	private void events() {
-		btnExit.addActionListener( new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				dispose();				
-			}
-		});		
-		
-		btnOtros.addActionListener( new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Configuracion.instancia().setVisible( true );
-				Configuracion.instancia().setSelected(ConectorFactory.MYSQL_DB);
-				
-			}
-		});
-		
-		
-		
+	private void events() {				
+		controller = MenuPrincipalController.instancia();
+		controller._init( this );
 	}
 	
 	
