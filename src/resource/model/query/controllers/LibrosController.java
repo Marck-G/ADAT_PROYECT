@@ -9,6 +9,7 @@ import resource.model.beans.Estado;
 import resource.model.beans.Libro;
 import resource.model.conector.ConectorFactory;
 import resource.model.conector.DataBaseConection;
+import resource.model.exceptions.EmptyTableException;
 import resource.model.exceptions.LibroNotFoundException;
 import resource.model.exceptions.SearchEmptyException;
 
@@ -26,6 +27,26 @@ public class LibrosController {
 	
 	private LibrosController() {
 		connection = ConectorFactory.getBaseActiva();
+	}
+	
+	public ArrayList< Libro > getLibros() throws SQLException, EmptyTableException{
+		ArrayList< Libro > out = new ArrayList< Libro >();
+		String sql = "SELECT " + DATOS_LIBRO + "FROM LIBRO";
+		ResultSet resul = connection.executeSql( sql );
+		while( resul.next() ) {
+			Libro l = new Libro(
+					resul.getString( "codigo" ),
+					resul.getString( "isbn" ),
+					resul.getString( "titulo" ),
+					resul.getString( "autor" ),
+					resul.getString( "editorial" ),
+					resul.getString( "asignatura" ), 
+					Estado.getEstadoFrom( resul.getString( "estado" ) ) );
+			out.add( l );
+		}
+		if( out.isEmpty() )
+			throw new EmptyTableException();
+		return out;
 	}
 	
 	/**
