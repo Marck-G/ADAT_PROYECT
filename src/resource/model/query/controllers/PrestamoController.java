@@ -3,6 +3,7 @@ package resource.model.query.controllers;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -70,7 +71,6 @@ public class PrestamoController {
 						true );
 			out.add( p );
 		}
-		
 		return out;
 	}
 	
@@ -107,19 +107,20 @@ public class PrestamoController {
 	 */
 	public void setPrestamoDevuelto( Prestamo p ) throws SQLException {
 		String sql1 = "DELETE FROM prestamo WHERE alumno = ? AND libro = ? AND fecha_alta = ?";
-		String sql2 = "INSER INTO historico(libro, alumno, fecha_alta, fecha_dev) VALUES( ?,?,?,?)";
+		String sql2 = "INSERT INTO historico(alumno, libro, fecha_alta, fecha_dev) VALUES( ?,?,?,?)";
+		SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
 		//Borramos de la tabla de prestamos
 		PreparedStatement rm = connection.getConnection().prepareStatement(sql1);
 		rm.setString( 1, p.getAlumno().getDni() );
 		rm.setString( 2, p.getLibro().getCodigo() );
-		rm.setDate( 3, new java.sql.Date( p.getFecha_alta().getTime() ) );
+		rm.setString( 3, format.format( p.getFecha_alta() ) );
 		rm.executeUpdate();		
 		// lo agragamos en la tabla de historicos
 		PreparedStatement insert = connection.getConnection().prepareStatement( sql2 );
 		insert.setString( 1, p.getAlumno().getDni() );
 		insert.setString( 2, p.getLibro().getCodigo() );
-		insert.setDate( 3, new java.sql.Date( p.getFecha_alta().getTime() ) );
-		insert.setDate( 4, new java.sql.Date( p.getFecha_devolucion().getTime() ) );
+		insert.setString( 3, format.format( p.getFecha_alta() ) );
+		insert.setString( 4, format.format( p.getFecha_devolucion() ) );
 		insert.executeUpdate();
 	}
 	
