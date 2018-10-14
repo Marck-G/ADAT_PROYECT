@@ -200,18 +200,13 @@ public class AlumnosController {
 		updateAlum.setString(3, al.getAp1() );
 		updateAlum.setString(4, al.getAp2() );
 		updateAlum.setString(5, dni );
-		System.out.println( updateAlum );
 		updateAlum.addBatch();
 		
 	}
 	
 	public void update() throws SQLException {
-		int[] i;
 		if( updateAlum != null ) {
-			 i = updateAlum.executeBatch();
-			for (int j : i) {
-				 System.out.println(j);
-			}
+			updateAlum.executeBatch();
 		}
 	}
 	
