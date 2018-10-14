@@ -48,7 +48,7 @@ public class Libro {
 	 * 
 	 * @return array con los datos del Libro actual
 	 */
-	public String[] oArray() {
+	public String[] toArray() {
 		String[] out = new String[7];
 		out[0] = codigo;
 		out[1] = isbn;
@@ -57,7 +57,7 @@ public class Libro {
 		out[4] = editorial;
 		out[5] = asignatura;
 		out[6] = estado.estado();
-		return null;
+		return out;
 	}
 	
 	/**

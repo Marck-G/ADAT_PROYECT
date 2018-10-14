@@ -1,5 +1,6 @@
 package resource.model.beans;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -30,7 +31,7 @@ public class Prestamo {
 	
 	/**
 	 * Convertimos el objeto Prestamo a un array con toda la infomaci&oacute;n
-	 * @return
+	 * @return { codigo, titulo, dni, nombre+ap1, fecha_alt, fecha_dev, estado"
 	 */
 	public String[] toArray() {
 		SimpleDateFormat d = new SimpleDateFormat("dd/MM/yy");
@@ -43,6 +44,22 @@ public class Prestamo {
 		out[5] = d.format( fecha_devolucion );
 		out[6] = (devuelto)?"Devuelto":"No devuelto";
 		return out;
+	}
+	
+	/**
+	 * 
+	 * @param data{codigo,dni,fecha_alta,fecha_dev,devuelto}
+	 * @return prestamo
+	 * @throws ParseException 
+	 */
+	public static Prestamo toPrestamo( String[] data ) throws ParseException {
+		SimpleDateFormat d = new SimpleDateFormat("dd/MM/yy");
+		return new Prestamo(
+				new Libro(data[0], "","", "", "", "", Estado.NUEVO),
+				new Alumno(data[1], "", "", ""),
+				d.parse(data[2]), 
+				d.parse( data[3]),
+				data[4].equalsIgnoreCase("devuelto") );
 	}
 	
 	@Override
