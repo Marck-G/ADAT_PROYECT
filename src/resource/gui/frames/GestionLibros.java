@@ -1,11 +1,15 @@
 package resource.gui.frames;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import resource.gui.frames.components.buttons.DefaultButton;
@@ -42,6 +46,8 @@ public class GestionLibros extends JFrame {
 	private DefaultPanel 	libroPanel;
 	private DefaultPanel 	prestamoPanel;
 	private ToggleButton	toggle;
+	private JMenuItem		aPDF;
+	private JMenuItem		aHTML;
 	
 	
 	private GestionLibros() {
@@ -95,7 +101,8 @@ public class GestionLibros extends JFrame {
 		
 		prestamoPanel = new DefaultPanel( new GridBagLayout() );
 		
-		toggle = new ToggleButton("Devueltos", "No devueltos");
+		toggle = new ToggleButton("Ver no devueltos","Ver devueltos");
+		toggle.setPreferredSize( new Dimension( 200, 40 ) );
 		c.gridx = 0;
 		c.gridy	= 0;
 		prestamoPanel.add( toggle, c );
@@ -108,6 +115,15 @@ public class GestionLibros extends JFrame {
 		
 		getContentPane().add( tabs, "Center");
 		getContentPane().add(libroPanel, "East");
+		
+		JMenuBar bar 	= new JMenuBar();
+		JMenu menu 		= new JMenu( "Ayuda" );
+		aPDF 			= new JMenuItem( "Versión PDF" );
+		aHTML			= new JMenuItem( "Versión Web" );
+		menu.add( aHTML );
+		menu.add( aPDF );		
+		bar.add( menu );
+		setJMenuBar( bar );
 	}
 
 	/**

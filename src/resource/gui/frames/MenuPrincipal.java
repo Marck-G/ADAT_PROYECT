@@ -40,9 +40,9 @@ public class MenuPrincipal extends JFrame {
 				
 		components();
 		
-		events();
-		
-		tooltips();
+			events();
+			
+			tooltips();
 		
 		
 		setSize(430, 300);
