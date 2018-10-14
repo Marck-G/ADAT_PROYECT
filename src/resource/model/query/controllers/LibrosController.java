@@ -28,10 +28,15 @@ public class LibrosController {
 	private LibrosController() {
 		connection = ConectorFactory.getBaseActiva();
 	}
-	
+	/**
+	 * 
+	 * @return ArrayList< Libro > Todos los libros de la base de datos
+	 * @throws SQLException
+	 * @throws EmptyTableException
+	 */
 	public ArrayList< Libro > getLibros() throws SQLException, EmptyTableException{
 		ArrayList< Libro > out = new ArrayList< Libro >();
-		String sql = "SELECT " + DATOS_LIBRO + "FROM LIBRO";
+		String sql = "SELECT " + DATOS_LIBRO + "FROM libro";
 		ResultSet resul = connection.executeSql( sql );
 		while( resul.next() ) {
 			Libro l = new Libro(
@@ -49,23 +54,28 @@ public class LibrosController {
 		return out;
 	}
 	
+	
 	/**
-	 * Buscar libros por asignatura
-	 * @param asignatura
-	 * @return ArrayList< Libro >
+	 * Busca un libro según coincidencias
+	 * @param codigo | titulo | isbn | autor | editorial | estado
+	 * @return libro
 	 * @throws SQLException
-	 * @throws SearchEmptyException
+	 * @throws SearchEmptyException 
+	 * @throws LibroNotFoundException 
 	 */
-	public ArrayList< Libro > getLibrosAsignatura( String asignatura ) throws SQLException, SearchEmptyException{
-		ArrayList< Libro > out = new ArrayList< Libro >();
-		String sql = "SELECT " + DATOS_LIBRO 
-				+ "FROM LIBRO"
-				+ " WHERE asigntura = upper(?)";
+	public ArrayList< Libro > getLibros( String codigo ) throws SQLException, LibroNotFoundException{
+		String sql = "SELECT " + DATOS_LIBRO + " FROM libro WHERE codigo=? OR titulo LIKE ? OR autor LIKE ?"
+				+ " OR editorial LIKE ? OR asignatura LIKE ? OR estado LIKE ?";
 		PreparedStatement pr = connection.getConnection().prepareStatement( sql );
-		pr.setString( 1, asignatura );
-		ResultSet resul = pr.executeQuery();
-		while ( resul.next() ) {
-			//creamos el libro con los datos de la base
+		pr.setString( 1, codigo );
+		pr.setString( 2, "%"+ codigo + "%" );
+		pr.setString( 3, "%"+ codigo + "%" );
+		pr.setString( 4, "%"+ codigo + "%" );
+		pr.setString( 5, "%"+ codigo + "%" );
+		pr.setString( 6, "%"+ codigo + "%" );
+		ResultSet resul = connection.executeStatement( pr );
+		ArrayList< Libro > out = new ArrayList< Libro >();
+		while( resul.next() ) {
 			Libro l = new Libro(
 					resul.getString( "codigo" ),
 					resul.getString( "isbn" ),
@@ -74,37 +84,33 @@ public class LibrosController {
 					resul.getString( "editorial" ), 
 					resul.getString( "asignatura" ),
 					Estado.getEstadoFrom( resul.getString( "estado" ) ) );
-			//lo metemos en el arraylist
 			out.add( l );
 		}
-		
 		if( out.isEmpty() )
-			throw new SearchEmptyException();
+			throw new LibroNotFoundException();
 		return out;
 	}
-	
 	/**
-	 * Busca un libro según su código
+	 * Busca un libro por su codigo
 	 * @param codigo
-	 * @return libro
+	 * @return libro buscado
 	 * @throws SQLException
-	 * @throws SearchEmptyException 
-	 * @throws LibroNotFoundException 
+	 * @throws LibroNotFoundException
 	 */
-	public Libro getLibrosCodigo( String codigo ) throws SQLException, LibroNotFoundException{
-		String sql = "SELECT " + DATOS_LIBRO + " FROM LIBRO WHERE codigo=?";
+	public Libro getLibrosCodigo( String codigo ) throws SQLException, LibroNotFoundException {
+		String sql = "SELECT " + DATOS_LIBRO + " FROM libro WHERE codigo=? ";
 		PreparedStatement pr = connection.getConnection().prepareStatement( sql );
 		pr.setString( 1, codigo );
 		ResultSet resul = connection.executeStatement( pr );
 		if( resul.next() )
-			return new Libro(
-					resul.getString( "codigo" ),
-					resul.getString( "isbn" ),
-					resul.getString( "titulo" ),
-					resul.getString( "autor" ),
-					resul.getString( "editorial" ), 
-					resul.getString( "asignatura" ),
-					Estado.getEstadoFrom( resul.getString( "estado" ) ) );
+		return new Libro(
+				resul.getString( "codigo" ),
+				resul.getString( "isbn" ),
+				resul.getString( "titulo" ),
+				resul.getString( "autor" ),
+				resul.getString( "editorial" ), 
+				resul.getString( "asignatura" ),
+				Estado.getEstadoFrom( resul.getString( "estado" ) ) );
 		throw new LibroNotFoundException();
 	}
 	
@@ -116,7 +122,7 @@ public class LibrosController {
 	public void addLibro( Libro libro ) throws SQLException {
 		
 		if ( addLibros == null ) {
-			String sql = "INSERT INTO LIBRO VALUES( ?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO libro VALUES( ?,?,?,?,?,?,?)";
 			addLibros = connection.getConnection().prepareStatement( sql );
 		}
 			
@@ -148,8 +154,8 @@ public class LibrosController {
 	 * @throws SQLException
 	 */
 	public void addLibro() throws SQLException {
-		addLibros.executeBatch();
-		addLibros.clearBatch();
+		if( addLibros != null ) 
+			addLibros.executeBatch();
 	}
 	
 	/**
@@ -159,7 +165,7 @@ public class LibrosController {
 	 */
 	public void removeLibro( String codigo ) throws SQLException {
 		if( addLibros == null ) {
-			String sql = "DELETE FROM LIBRO WHERE codigo = ?";
+			String sql = "DELETE FROM libro WHERE codigo = ?";
 			rmLibros = connection.getConnection().prepareStatement( sql );
 		}		
 		rmLibros.setString(1, codigo);
@@ -195,6 +201,20 @@ public class LibrosController {
 			rmLibros.executeBatch();
 			rmLibros.clearBatch();
 		}
+	}
+	
+	public void updateLibro( String codigo, Libro libro ) throws SQLException {
+		String sql = "UPDATE libro set isbn=?, titulo=?, autor=?, editorial=?, asignatura=?, estado=? "
+				+ " WHERE codigo=?";
+		PreparedStatement pr = connection.getConnection().prepareStatement( sql );
+		pr.setString( 1, libro.getIsbn() );
+		pr.setString( 2, libro.getTitulo() );
+		pr.setString( 3, libro.getAutor() );
+		pr.setString( 4, libro.getEditorial() );
+		pr.setString( 5, libro.getAsignatura() );
+		pr.setString( 6, libro.getEstado().estado() );
+		pr.setString( 7, libro.getCodigo() );
+		pr.executeUpdate();
 	}
 	
 
