@@ -8,8 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
 import resource.gui.constants.Fonts;
 import resource.gui.frames.components.buttons.LigthButton;
 import resource.gui.frames.components.inputs.DefaultInput;
@@ -99,14 +97,6 @@ public class GestionAlumnos extends JFrame {
 		
 		
 	}
-	
-	public static void main(String[] args) throws SQLException, EmptyTableException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-		ConectorFactory.setDataBase( ConectorFactory.MYSQL_DB );
-		ConectorFactory.getBaseActiva().conect();
-		new GestionAlumnos();
-		
-	}
-
 
 	/**
 	 * @return the tabla
@@ -116,12 +106,7 @@ public class GestionAlumnos extends JFrame {
 	}
 
 
-	/**
-	 * @return the model
-	 */
-	public DefaultTableModel getModel() {
-		return model;
-	}
+	
 
 
 	/**

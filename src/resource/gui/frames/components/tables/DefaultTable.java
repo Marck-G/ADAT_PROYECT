@@ -9,9 +9,17 @@ import resource.gui.constants.Fonts;
 
 public class DefaultTable extends JTable {
 	
+	public DefaultTable(  ) {
+		super();
+		properties();
+	}
+	
 	public DefaultTable( DefaultTableModel model ) {
 		super( model );
-		
+		properties();
+	}
+	
+	private void properties() {
 		setBackground( Colors.LL_GREEN );
 		setFont( Fonts.SANS );
 		setSelectionBackground( Colors.D_GREEN );

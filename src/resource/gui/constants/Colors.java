@@ -29,6 +29,8 @@ public final class Colors {
 	public static final Color BACKGROUND = Utils.hexDecode( "AEE3FC" );
 	
 	public static final Color INPUTS_BORDER = Utils.hexDecode( "ff1744" );
+	//public static final Color TABLE_BACK	= Utils.hexDecode( "" );
+	//public static final Color TABLE_SELECTION_BACK	= Utils.hexDecode( "" );
 	
 	
 	/**

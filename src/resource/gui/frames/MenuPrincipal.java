@@ -47,6 +47,7 @@ public class MenuPrincipal extends JFrame {
 		setUndecorated( true );
 		setContentPane( new DefaultPanel( new BorderLayout()));
 		setDefaultCloseOperation( EXIT_ON_CLOSE );
+		setIconImage( new ImageIcon( ImageManager.getImage("icon.png") ).getImage() );
 				
 		components();
 		
@@ -140,7 +141,7 @@ public class MenuPrincipal extends JFrame {
 		return btnOtros;
 	}
 	private void tooltips() {
-		btnBiblioteca.setToolTipText( "Acceder al Ã¡rea de la biblioteca" );
+		btnBiblioteca.setToolTipText( "Acceder al &aacute;rea de la biblioteca" );
 		btnAlumnos.setToolTipText( "Acceder al Ã¡rea de alumnos");
 		btnOtros.setToolTipText( "Opciones" );
 		btnExit.setToolTipText( "Cerrar el programa" );

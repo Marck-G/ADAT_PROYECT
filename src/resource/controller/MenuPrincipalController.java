@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import resource.gui.frames.Configuracion;
 import resource.gui.frames.GestionAlumnos;
 import resource.gui.frames.MenuPrincipal;
+import resource.gui.frames.dialog.DefaultDialog;
 import resource.model.conector.ConectorFactory;
+import resource.utils.Formating;
 
 public class MenuPrincipalController {
 	
@@ -32,8 +34,7 @@ public class MenuPrincipalController {
 		try {
 			ConectorFactory.getBaseActiva().conect();
 		} catch ( Exception e ) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new DefaultDialog( Formating.toHTML( e.getCause().toString() ) );
 		}
 		alumnoView();
 		exit();
@@ -58,7 +59,11 @@ public class MenuPrincipalController {
 			public void actionPerformed(ActionEvent arg0) {
 				// cerramos todas las ventanas instanciadas
 				window.dispose();	
-				GestionAlumnoController.instancia().getWindow().dispose();
+				try {
+					GestionAlumnos.instancia().dispose();
+				} catch (SQLException e) {
+					new DefaultDialog( e.getMessage() );
+				}
 				Configuracion.instancia().dispose();
 			}
 		});	
@@ -75,8 +80,7 @@ public class MenuPrincipalController {
 					GestionAlumnoController.instancia()._init( GestionAlumnos.instancia() );
 					
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					new DefaultDialog( e1.getMessage() );
 				}				
 			}
 		});					

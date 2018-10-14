@@ -36,6 +36,7 @@ public class AlumnosController {
 	private DataBaseConection conection;
 	private PreparedStatement addAlum;
 	private PreparedStatement rmAlum;
+	private PreparedStatement updateAlum;
 	
 	private AlumnosController() {
 		// cogemos la única base activa 
@@ -74,19 +75,25 @@ public class AlumnosController {
 	 * @throws SQLException
 	 * @throws AlumnoNotFoundException 
 	 */
-	public Alumno getAlumno( String dni ) throws SQLException, AlumnoNotFoundException {
-		String sql = "SELECT dni,nombre, ap1, ap2 FROM alumno WHERE dni=?";
+	public ArrayList<Alumno> getAlumno( String dni ) throws SQLException, AlumnoNotFoundException {
+		String sql = "SELECT dni,nombre, ap1, ap2 FROM alumno WHERE upper(dni) = ? OR upper(nombre)LIKE ? OR upper(ap1) LIKE ?";
+		ArrayList<Alumno> out = new ArrayList<Alumno>();
 		PreparedStatement p = conection.getConnection().prepareStatement( sql );
 		// metemos el dni
-		p.setString( 1, dni );
+		p.setString( 1, dni.toUpperCase() );
+		p.setString( 2, "%" + dni.toUpperCase() + "%" );
+		p.setString( 3, "%" + dni.toUpperCase()+  "%" );
 		ResultSet r = conection.executeStatement( p );
-		if ( r.next() ) {
-			return new Alumno( 
+		while ( r.next() ) {
+			Alumno a = new Alumno( 
 					r.getString( "dni" ), 
 					r.getString( "nombre" ), 
 					r.getString( "ap1" ), 
 					r.getString( "ap2" ) );
+			out.add( a );
 		}
+		if( !out.isEmpty() )
+			return out;
 		// no se encontro al alumno
 		throw new AlumnoNotFoundException();
 	}
@@ -98,7 +105,7 @@ public class AlumnosController {
 	 * @throws SQLException
 	 * @throws AlumnoNotFoundException
 	 */
-	public Alumno getAlumno( Alumno alumno ) throws SQLException, AlumnoNotFoundException {
+	public ArrayList<Alumno> getAlumno( Alumno alumno ) throws SQLException, AlumnoNotFoundException {
 		return getAlumno( alumno.getDni() );
 	}
 	
@@ -133,6 +140,10 @@ public class AlumnosController {
 			addAlumno(a);
 		}
 	}
+	public void addAlumno() throws SQLException {
+		if( addAlum != null )
+			addAlum.executeBatch();
+	}
 	
 	/**
 	 * Elimina un alumno
@@ -141,7 +152,7 @@ public class AlumnosController {
 	 */
 	public void removeAlumno( String dni ) throws SQLException {
 		if( rmAlum == null ) {
-			String sql = "DELETE FROM ALUMNO WHERE dni = ?";
+			String sql = "DELETE FROM alumno WHERE dni = ?";
 			rmAlum = conection.getConnection().prepareStatement( sql );
 		}
 		rmAlum.setString( 1, dni ); 
@@ -176,6 +187,31 @@ public class AlumnosController {
 		if ( rmAlum != null ) {
 			rmAlum.executeBatch();
 			rmAlum.clearBatch();
+		}
+	}
+	
+	public void update( String dni, Alumno al ) throws SQLException {
+		if( updateAlum == null ) {
+			String sql = "UPDATE alumno SET dni=?, nombre=?, ap1=?, ap2=? WHERE dni=? ";
+			updateAlum = conection.getConnection().prepareStatement( sql );
+		}
+		updateAlum.setString(1, al.getDni() );
+		updateAlum.setString(2, al.getNombre() );
+		updateAlum.setString(3, al.getAp1() );
+		updateAlum.setString(4, al.getAp2() );
+		updateAlum.setString(5, dni );
+		System.out.println( updateAlum );
+		updateAlum.addBatch();
+		
+	}
+	
+	public void update() throws SQLException {
+		int[] i;
+		if( updateAlum != null ) {
+			 i = updateAlum.executeBatch();
+			for (int j : i) {
+				 System.out.println(j);
+			}
 		}
 	}
 	

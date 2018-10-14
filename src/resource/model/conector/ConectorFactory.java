@@ -28,7 +28,7 @@ public class ConectorFactory {
 		case MYSQL_DB:
 			MysqlConector.instance().setConectionData(
 					"jdbc:mysql://127.0.0.1:3306/gestion_libros",
-					"root", "tiger");
+					"root", "");
 			return MysqlConector.instance();
 		case SQLITE_DB:
 			return null;
