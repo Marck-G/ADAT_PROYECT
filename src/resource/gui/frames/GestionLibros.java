@@ -45,10 +45,11 @@ public class GestionLibros extends JFrame {
 	
 	
 	private GestionLibros() {
-		setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+		setDefaultCloseOperation( HIDE_ON_CLOSE );
 		components();
 		
-		setSize(400,600);
+		setSize(800,600);
+		setLocationRelativeTo( null );
 		setVisible(true);
 	}
 	
@@ -58,7 +59,7 @@ public class GestionLibros extends JFrame {
 		tablaLibros 	= new DefaultTable();
 		tablaPrestamos 	= new DefaultTable();
 		tabs.setFocusable( false );
-		
+
 		remove  = new LigthButton("");
 		add		= new LigthButton("");
 		search	= new DefaultButton("");
@@ -106,14 +107,80 @@ public class GestionLibros extends JFrame {
 		tabs.add("Prestamos",  pre );
 		
 		getContentPane().add( tabs, "Center");
-		//getContentPane().add(libroPanel, "East");
-		getContentPane().add(prestamoPanel, "East");
-		
+		getContentPane().add(libroPanel, "East");
+	}
+
+	/**
+	 * @return the tabs
+	 */
+	public JTabbedPane getTabs() {
+		return tabs;
+	}
+
+	/**
+	 * @return the add
+	 */
+	public LigthButton getAdd() {
+		return add;
+	}
+
+	/**
+	 * @return the remove
+	 */
+	public LigthButton getRemove() {
+		return remove;
+	}
+
+	/**
+	 * @return the search
+	 */
+	public DefaultButton getSearch() {
+		return search;
+	}
+
+	/**
+	 * @return the tfSearch
+	 */
+	public DefaultInput getTfSearch() {
+		return tfSearch;
+	}
+
+	/**
+	 * @return the tablaLibros
+	 */
+	public DefaultTable getTablaLibros() {
+		return tablaLibros;
+	}
+
+	/**
+	 * @return the tablaPrestamos
+	 */
+	public DefaultTable getTablaPrestamos() {
+		return tablaPrestamos;
+	}
+
+	/**
+	 * @return the libroPanel
+	 */
+	public DefaultPanel getLibroPanel() {
+		return libroPanel;
+	}
+
+	/**
+	 * @return the prestamoPanel
+	 */
+	public DefaultPanel getPrestamoPanel() {
+		return prestamoPanel;
+	}
+
+	/**
+	 * @return the toggle
+	 */
+	public ToggleButton getToggle() {
+		return toggle;
 	}
 	
 	
-	public static void main(String[] args) {
-		new GestionLibros();
-	}
+	
 
 }
