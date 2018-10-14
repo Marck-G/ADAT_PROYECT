@@ -28,7 +28,7 @@ public class LigthButton extends JButton {
 			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				setBackground( Colors.Utils.lighter( Colors.PRIMARY, 60 ) );
+				setBackground( Colors.LL_GREEN );
 				setForeground( Colors.SECONDARY );
 			}
 

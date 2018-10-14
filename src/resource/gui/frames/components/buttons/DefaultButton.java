@@ -37,7 +37,7 @@ public class DefaultButton extends JButton {
 			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				setBackground( Colors.Utils.lighter( Colors.PRIMARY, 60 ) );
+				setBackground( Colors.LL_GREEN);
 				setForeground( Colors.P_FONT );
 			}
 

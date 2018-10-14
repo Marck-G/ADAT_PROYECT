@@ -4,6 +4,8 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import resource.gui.constants.Colors;
@@ -29,7 +31,16 @@ public class ToggleButton extends JButton{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				changeActivated();
-				refresView();				
+			}
+		});
+		addMouseListener( new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setBackground( Colors.LL_GREEN );
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				refresView();
 			}
 		});
 		
@@ -41,10 +52,10 @@ public class ToggleButton extends JButton{
 	private void refresView() {
 		if ( activated ) {
 			setBackground( Colors.PRIMARY );
-			setText( textOn );
+			setText( textOff );
 		} else {
 			setBackground( Colors.SECONDARY );
-			setText( textOff );
+			setText( textOn );
 		}
 	}
 	
@@ -53,6 +64,7 @@ public class ToggleButton extends JButton{
 	 */
 	public void changeActivated() {
 		activated = ( activated )? false:true;
+		refresView();
 	}
 	
 	/**
