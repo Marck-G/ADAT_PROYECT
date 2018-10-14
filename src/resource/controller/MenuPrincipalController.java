@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import resource.gui.frames.Configuracion;
 import resource.gui.frames.GestionAlumnos;
+import resource.gui.frames.GestionLibros;
 import resource.gui.frames.MenuPrincipal;
 import resource.gui.frames.dialog.DefaultDialog;
 import resource.model.conector.ConectorFactory;
@@ -39,6 +40,7 @@ public class MenuPrincipalController {
 		alumnoView();
 		exit();
 		config();
+		librosView();
 	}
 	
 	private void config() {
@@ -75,8 +77,10 @@ public class MenuPrincipalController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					// hacemos visible una y escondemos la otra
 					GestionAlumnos.instancia().setVisible( true );
 					window.setVisible( false );
+					// oinicamos el controlador con la vista correspondiente
 					GestionAlumnoController.instancia()._init( GestionAlumnos.instancia() );
 					
 				} catch (SQLException e1) {
@@ -84,6 +88,18 @@ public class MenuPrincipalController {
 				}				
 			}
 		});					
+	}
+	
+	private void librosView() {
+		window.getBtnBiblioteca().addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				GestionLibros.instancia().setVisible( true );
+				window.setVisible( false );
+				//TODO: iniciar el controlador con la instacia de la vista
+			}
+		});
 	}
 
 	/**

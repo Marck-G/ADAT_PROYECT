@@ -9,6 +9,7 @@ import resource.model.beans.Estado;
 import resource.model.beans.Libro;
 import resource.model.conector.ConectorFactory;
 import resource.model.conector.DataBaseConection;
+import resource.model.exceptions.LibroNotFoundException;
 import resource.model.exceptions.SearchEmptyException;
 
 public class LibrosController {
@@ -67,8 +68,9 @@ public class LibrosController {
 	 * @return libro
 	 * @throws SQLException
 	 * @throws SearchEmptyException 
+	 * @throws LibroNotFoundException 
 	 */
-	public Libro getLibrosCodigo( String codigo ) throws SQLException, SearchEmptyException{
+	public Libro getLibrosCodigo( String codigo ) throws SQLException, LibroNotFoundException{
 		String sql = "SELECT " + DATOS_LIBRO + " FROM LIBRO WHERE codigo=?";
 		PreparedStatement pr = connection.getConnection().prepareStatement( sql );
 		pr.setString( 1, codigo );
@@ -82,7 +84,7 @@ public class LibrosController {
 					resul.getString( "editorial" ), 
 					resul.getString( "asignatura" ),
 					Estado.getEstadoFrom( resul.getString( "estado" ) ) );
-		throw new SearchEmptyException();
+		throw new LibroNotFoundException();
 	}
 	
 	/**

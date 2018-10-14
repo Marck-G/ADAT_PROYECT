@@ -6,26 +6,31 @@ import java.awt.Insets;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import resource.gui.constants.Colors;
 import resource.gui.constants.Fonts;
 import resource.gui.frames.components.buttons.LigthButton;
 import resource.gui.frames.components.inputs.DefaultInput;
 import resource.gui.frames.components.panels.DefaultPanel;
 import resource.gui.frames.components.tables.DefaultTable;
 import resource.gui.resources.img.ImageManager;
-import resource.model.conector.ConectorFactory;
-import resource.model.exceptions.EmptyTableException;
 
 public class GestionAlumnos extends JFrame {
 	
 	private static final long serialVersionUID = -900998335468872868L;
 	
-	private JTable tabla;
+	private JTable 		 tabla;
 	private LigthButton	 searh;
 	private LigthButton	 add;
 	private LigthButton  remove;
 	private DefaultInput tfSearch;
+	private JMenuItem	 aPDF;
+	private JMenuItem 	 ahtml;
 	
 	private static GestionAlumnos instancia;
 	
@@ -42,7 +47,19 @@ public class GestionAlumnos extends JFrame {
 		componentes();
 		pack();
 		setLocationRelativeTo( null );
-		
+		JMenuBar b = new JMenuBar();
+		JMenu m = new JMenu("Ayuda");
+		b.setFont( Fonts.ARIAL );
+		b.setBackground( Colors.Utils.lighter( Colors.PRIMARY, 20));
+		b.setBorder(null);
+		b.setForeground( Colors.S_FONT );
+		aPDF = new JMenuItem("Abrir PDF de Ayuda");
+		ahtml = new JMenuItem("Archivo Web"); 
+		m.add( aPDF );
+		m.add( ahtml );
+		m.setFont( Fonts.ARIAL);
+		b.add( m );
+		setJMenuBar(b);
 	}
 	
 	
@@ -108,6 +125,20 @@ public class GestionAlumnos extends JFrame {
 
 	
 
+
+	/**
+	 * @return the aPDF
+	 */
+	public JMenuItem getaPDF() {
+		return aPDF;
+	}
+
+	/**
+	 * @return the ahtml
+	 */
+	public JMenuItem getAhtml() {
+		return ahtml;
+	}
 
 	/**
 	 * @return the searh

@@ -1,6 +1,5 @@
 package resource.gui.frames.components.tables;
 
-import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -8,7 +7,8 @@ import resource.gui.constants.Colors;
 import resource.gui.constants.Fonts;
 
 public class DefaultTable extends JTable {
-	
+	private static final long serialVersionUID = 4231673769060695789L;
+
 	public DefaultTable(  ) {
 		super();
 		properties();

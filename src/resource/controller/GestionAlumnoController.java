@@ -2,33 +2,17 @@ package resource.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.naming.CommunicationException;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
-
-import resource.gui.constants.Colors.Utils;
 import resource.gui.frames.GestionAlumnos;
 import resource.gui.frames.components.buttons.LigthButton;
-import resource.gui.frames.components.tables.DefaultTable;
 import resource.gui.frames.dialog.DefaultDialog;
 import resource.model.beans.Alumno;
 import resource.model.exceptions.AlumnoNotFoundException;
@@ -37,6 +21,7 @@ import resource.model.query.controllers.AlumnosController;
 import resource.utils.Formating;
 
 public class GestionAlumnoController {
+	// ==========| SINGLETON |=========== //
 	private static GestionAlumnoController instancia;
 	
 	public static GestionAlumnoController instancia() {
@@ -46,10 +31,10 @@ public class GestionAlumnoController {
 	}
 	
 	private GestionAlumnoController() {}
+	// =========| FIN |=======  //
 	
 	private GestionAlumnos window;
 	private DefaultTableModel m;
-	private int rowEditing;
 	
 	public void _init( GestionAlumnos w ) {
 		window = w;
@@ -58,6 +43,7 @@ public class GestionAlumnoController {
 		actualizarBase();
 		remove();
 		add();
+		menuBar();
 	}
 	
 	private void start() {
@@ -154,14 +140,13 @@ public class GestionAlumnoController {
 					String[] data = { window.getTfSearch().getText(),
 							"nombre", "Primer apellido", "Segundo apellido"};
 					try {
-						System.out.println( Alumno.toAlumno(data) );
 						AlumnosController.instancia().addAlumno( Alumno.toAlumno( data ));
 						AlumnosController.instancia().addAlumno();
 						start();
 					} catch (SQLException ex) {
-						// TODO Auto-generated catch block
-						ex.printStackTrace();
+						new DefaultDialog(  ex.getMessage() );
 					}
+					vaciarTf();
 				}
 				
 			}
@@ -174,29 +159,29 @@ public class GestionAlumnoController {
 				if( e.getPropertyName().equals( "tableCellEditor" ) && !window.getTabla().isEditing() ) {
 					int x = window.getTabla().getEditingRow();
 					int y =  window.getTabla().getEditingColumn();
-					String oldDni = (String) window.getTabla().getValueAt( x, 0 );
-					System.out.println(oldDni);
-					// si el dni no esta vacio lo actulizamos
-					//if ( !oldDni.isEmpty() ) {
-						System.out.println( x +  ", " + y );
-						String[] data = { m.getValueAt( x, 0 ) + "",
-								m.getValueAt( x,1 ).toString()+ "",
-								m.getValueAt( x,2 ).toString() + "",
-								m.getValueAt( x,3 ).toString() + ""};
-						try {
-							// lo agregamos al la base de datos
-							AlumnosController.instancia().update( oldDni, Alumno.toAlumno( data ) );
-							//AlumnosController.instancia().update();
-						} catch (SQLException ex) {
-							// TODO Auto-generated catch block
-							ex.printStackTrace();
-						}
-					//} else {}
+					String dni = (String) window.getTabla().getValueAt( x, 0 );
+					String[] data = { m.getValueAt( x, 0 ) + "",
+							m.getValueAt( x,1 ).toString()+ "",
+							m.getValueAt( x,2 ).toString() + "",
+							m.getValueAt( x,3 ).toString() + ""};
+					try {
+						// lo agregamos al la base de datos
+						AlumnosController.instancia().update( dni, Alumno.toAlumno( data ) );
+						//AlumnosController.instancia().update();
+					} catch (SQLException ex) {
+						new DefaultDialog( ex.getMessage() );
+					}
+					vaciarTf();
+					
 				}
 				
 			}
 		});
 		
+	}
+	
+	private void vaciarTf() {
+		window.getTfSearch().setText("");
 	}
 	
 	
@@ -211,13 +196,14 @@ public class GestionAlumnoController {
 			public void windowClosing(WindowEvent e) {
 				actualizar();
 			}
-			
 		});
-		
-		
 	}
+	/**
+	 * Actualiza la base de datos
+	 */
 	private void actualizar() {
 		try {
+			//ejecutamos todos los bach que haya
 			AlumnosController.instancia().removeAlumno();
 			AlumnosController.instancia().addAlumno();
 			AlumnosController.instancia().update();
@@ -225,25 +211,59 @@ public class GestionAlumnoController {
 			new DefaultDialog( ex.getCause().toString() );
 		}
 	}
-	
+	/**
+	 * Elimna el alumno seleccionados
+	 */
 	private void remove() {
+		
 		JTable tabla = window.getTabla();
 		
 		window.getRemove().addActionListener( new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String dni = (String) tabla.getValueAt( tabla.getSelectedRow(), 0 );
+				String dni;
+				int i;
+				if( !window.getTfSearch().getText().isEmpty() ) { //cogemos el escrito
+					dni = window.getTfSearch().getText();
+					for ( i = 0; i < m.getRowCount() && !dni.equals( m.getValueAt( i, 0 ) ); i++);
+				}else { //cogemos el dni selecionado
+					dni = (String) tabla.getValueAt( tabla.getSelectedRow(), 0 );
+					i = tabla.getSelectedRow();
+				}
 				try {
+					//lo borramos de la base de datos y del modelo
 					AlumnosController.instancia().removeAlumno( dni );
-					m.removeRow( tabla.getSelectedRow() );
+					m.removeRow( i );
 				} catch (SQLException e) {
 					new DefaultDialog( e.getCause().toString() );
 				}
+				vaciarTf();
 			}
 		});
 	}
 	
+	/**
+	 * Colocamos los eventos de la barra de men&uacute;
+	 */
+	private void menuBar() {
+		window.getAhtml().addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new DefaultDialog("Abierta la ayuda");
+				//TODO: hacer que salga la ayuda en HTML
+			}
+		});
+		window.getaPDF().addActionListener( new ActionListener() {
+					
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new DefaultDialog("Abierta la ayuda pdf");
+				//TODO: Hacer que salga la ayuda en pdf
+			}
+		});
+	}
 	
 
 	/**
