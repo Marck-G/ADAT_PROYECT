@@ -63,9 +63,11 @@ public class MenuPrincipalController {
 				window.dispose();	
 				try {
 					GestionAlumnos.instancia().dispose();
+					ConectorFactory.getBaseActiva().close();
 				} catch (SQLException e) {
 					new DefaultDialog( e.getMessage() );
 				}
+				GestionLibros.instancia().dispose();
 				Configuracion.instancia().dispose();
 			}
 		});	
@@ -97,7 +99,8 @@ public class MenuPrincipalController {
 			public void actionPerformed(ActionEvent arg0) {
 				GestionLibros.instancia().setVisible( true );
 				window.setVisible( false );
-				//TODO: iniciar el controlador con la instacia de la vista
+				GestionLibrosController.instancia()._init( GestionLibros.instancia() );
+				
 			}
 		});
 	}
