@@ -222,6 +222,10 @@ public class GestionAlumnoController {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				if( tabla.getSelectedRow() == -1 ) {
+					new DefaultDialog( Formating.toHTML( "Selecciona una fila a eliminar \no escribe el dni del alumno" ) );
+					return;
+				}
 				String dni;
 				int i;
 				if( !window.getTfSearch().getText().isEmpty() ) { //cogemos el escrito
