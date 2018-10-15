@@ -35,7 +35,7 @@ public class MenuPrincipalController {
 		try {
 			ConectorFactory.getBaseActiva().conect();
 		} catch ( Exception e ) {
-			new DefaultDialog( Formating.toHTML( e.getCause().toString() ) );
+			new DefaultDialog( Formating.toHTML( e.getMessage() ) );
 		}
 		alumnoView();
 		exit();
