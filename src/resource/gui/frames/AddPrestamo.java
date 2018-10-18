@@ -38,9 +38,13 @@ public final class AddPrestamo extends JFrame {
 	
 	private void elementos() {
 		codigo	= new DefaultInput( getContentPane() );
+		codigo.setPlaceholderText("Código del libro");
 		dni		= new DefaultInput( getContentPane() );
+		dni.setPlaceholderText("XXXXXXXXA");
 		fecha_alta = new DefaultInput( getContentPane() );
+		fecha_alta.setPlaceholderText("dd/mm/yy");
 		fecha_dev  = new DefaultInput( getContentPane() );
+		fecha_dev.setPlaceholderText("dd/mm/yy");
 		model = new DefaultComboBoxModel<Estado>( Estado.values() );
 		estado = new JComboBox<Estado>( model );
 		
