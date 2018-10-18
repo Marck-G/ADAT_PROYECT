@@ -2,6 +2,9 @@ package resource.gui.frames.components.inputs;
 
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
@@ -11,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
 import resource.gui.constants.Colors;
+import resource.gui.constants.Colors.Utils;
 import resource.gui.constants.Fonts;
 /**
  * JTextField personalizado
@@ -25,10 +29,14 @@ public class DefaultInput extends JTextField {
 	 * Recibe el panel que lo contiene para aceder a las características del panel
 	 * @param panel
 	 */
+	
+	private String placeholder;
+	
 	public DefaultInput(Container panel) {
 		setBorder( null );
 		setBackground( panel.getBackground() );
 		setForeground( panel.getForeground() );
+		setDisabledTextColor(Utils.hexDecode("#4f4f4f"));
 		if ( isFocusOwner() )
 			setBorder( BorderFactory.createMatteBorder(0, 0, 3, 0, Colors.INPUTS_BORDER ) );
 		else
@@ -77,6 +85,26 @@ public class DefaultInput extends JTextField {
 			
 		});
 		
+	}
+	
+	/**
+	 * Establecer el texto de muestra en el input
+	 * @param text
+	 */
+	public void setPlaceholderText( String text ) {
+		placeholder = text;
+	}
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		if (placeholder == null || placeholder.length() == 0 || getText().length() > 0) {
+            return;
+        }
+		
+		( ( Graphics2D ) g ).getRenderingHint( RenderingHints.KEY_ANTIALIASING );
+		( ( Graphics2D ) g ).setColor( getDisabledTextColor() );
+		( ( Graphics2D ) g ).drawString( placeholder, getInsets().left, g.getFontMetrics().getMaxAscent() + getInsets().top + 10);
 	}
 	
 
