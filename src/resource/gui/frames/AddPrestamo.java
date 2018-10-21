@@ -10,11 +10,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import resource.gui.frames.components.buttons.DefaultButton;
 import resource.gui.frames.components.buttons.LigthButton;
 import resource.gui.frames.components.inputs.DefaultInput;
 import resource.model.beans.Estado;
+import resource.utils.Formating;
 
 public final class AddPrestamo extends JFrame {
 	private static final long serialVersionUID = -330471827742038469L;
@@ -32,18 +35,22 @@ public final class AddPrestamo extends JFrame {
 		setTitle("Agregar Prestamo");
 		setLayout( new GridBagLayout() );
 		elementos();
-		setMinimumSize(new Dimension(450, 390));
+		setMinimumSize(new Dimension(500, 390));
 		setVisible( true );
 	}
 	
 	private void elementos() {
 		codigo	= new DefaultInput( getContentPane() );
+		codigo.setName( Formating.toHTML( "C&oacute;digo del libro" ) );
 		codigo.setPlaceholderText("Código del libro");
 		dni		= new DefaultInput( getContentPane() );
+		dni.setName( "DNI" );
 		dni.setPlaceholderText("XXXXXXXXA");
 		fecha_alta = new DefaultInput( getContentPane() );
+		fecha_alta.setName( "Fecha de alta" );
 		fecha_alta.setPlaceholderText("dd/mm/yy");
 		fecha_dev  = new DefaultInput( getContentPane() );
+		fecha_dev.setName( Formating.toHTML( "Fecha de devoluci&oacute;n" ) );
 		fecha_dev.setPlaceholderText("dd/mm/yy");
 		model = new DefaultComboBoxModel<Estado>( Estado.values() );
 		estado = new JComboBox<Estado>( model );
@@ -116,6 +123,57 @@ public final class AddPrestamo extends JFrame {
 	public static void main(String[] args) {
 		new AddPrestamo();
 	}
+
+	/**
+	 * @return the codigo
+	 */
+	public DefaultInput getCodigo() {
+		return codigo;
+	}
+
+	/**
+	 * @return the dni
+	 */
+	public DefaultInput getDni() {
+		return dni;
+	}
+
+	/**
+	 * @return the fecha_alta
+	 */
+	public DefaultInput getFecha_alta() {
+		return fecha_alta;
+	}
+
+	/**
+	 * @return the fecha_dev
+	 */
+	public DefaultInput getFecha_dev() {
+		return fecha_dev;
+	}
+
+	/**
+	 * @return the estado
+	 */
+	public JComboBox<Estado> getEstado() {
+		return estado;
+	}
+
+	/**
+	 * @return the aceptar
+	 */
+	public LigthButton getAceptar() {
+		return aceptar;
+	}
+
+	/**
+	 * @return the cancelar
+	 */
+	public DefaultButton getCancelar() {
+		return cancelar;
+	}
+	
+	
 	
 	
 	
