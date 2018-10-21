@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import resource.controller.AddPrestamoController;
 import resource.gui.frames.components.buttons.DefaultButton;
 import resource.gui.frames.components.buttons.LigthButton;
 import resource.gui.frames.components.inputs.DefaultInput;
@@ -41,7 +42,7 @@ public final class AddPrestamo extends JFrame {
 	
 	private void elementos() {
 		codigo	= new DefaultInput( getContentPane() );
-		codigo.setName( Formating.toHTML( "C&oacute;digo del libro" ) );
+		codigo.setName( "C&oacute;digo del libro" );
 		codigo.setPlaceholderText("Código del libro");
 		dni		= new DefaultInput( getContentPane() );
 		dni.setName( "DNI" );
@@ -50,7 +51,7 @@ public final class AddPrestamo extends JFrame {
 		fecha_alta.setName( "Fecha de alta" );
 		fecha_alta.setPlaceholderText("dd/mm/yy");
 		fecha_dev  = new DefaultInput( getContentPane() );
-		fecha_dev.setName( Formating.toHTML( "Fecha de devoluci&oacute;n" ) );
+		fecha_dev.setName( "Fecha de devoluci&oacute;n" );
 		fecha_dev.setPlaceholderText("dd/mm/yy");
 		model = new DefaultComboBoxModel<Estado>( Estado.values() );
 		estado = new JComboBox<Estado>( model );
@@ -121,7 +122,8 @@ public final class AddPrestamo extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new AddPrestamo();
+		AddPrestamoController.instancia()._init( new AddPrestamo() );
+		
 	}
 
 	/**
