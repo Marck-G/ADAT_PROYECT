@@ -37,6 +37,7 @@ public final class AddPrestamo extends JFrame {
 		setLayout( new GridBagLayout() );
 		elementos();
 		setMinimumSize(new Dimension(500, 390));
+		setLocationRelativeTo( null );
 		setVisible( true );
 	}
 	
@@ -61,26 +62,31 @@ public final class AddPrestamo extends JFrame {
 		c.gridx = 0;
 		c.gridy = 0;
 		c.insets = new Insets(10, 0, 0, 10 );
-		getContentPane().add( new JLabel( String.format( "%-30s", "Código del libro:" ) ), c );
+		getContentPane().add( new JLabel( String.format( "%-30s", 
+				"Código del libro:" ) ), c );
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 1;		
-		getContentPane().add( new JLabel( String.format( "%-30s", "DNI del alumno:" ) ), c );
+		getContentPane().add( new JLabel( String.format( "%-30s", 
+				"DNI del alumno:" ) ), c );
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 2;		
-		getContentPane().add( new JLabel( String.format( "%-30s", "Fecha de alta:" ) ), c );
+		getContentPane().add( new JLabel( String.format( "%-30s", 
+				"Fecha de alta:" ) ), c );
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 3;		
-		getContentPane().add( new JLabel( String.format( "%-30s", "Fecha de devolución:" ) ), c );
+		getContentPane().add( new JLabel( String.format( "%-30s", 
+				"Fecha de devolución:" ) ), c );
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 4;		
-		getContentPane().add( new JLabel( String.format( "%-30s", "Estado:" ) ), c );
+		getContentPane().add( new JLabel( String.format( "%-30s", 
+				"Estado:" ) ), c );
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;

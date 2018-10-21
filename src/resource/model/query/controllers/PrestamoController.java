@@ -3,6 +3,7 @@ package resource.model.query.controllers;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -123,5 +124,24 @@ public class PrestamoController {
 		insert.setString( 4, format.format( p.getFecha_devolucion() ) );
 		insert.executeUpdate();
 	}
+	
+	public void addPrestamo( 
+			String codigo, 
+			String dni,
+			String fecha_alta, 
+			String fecha_dev ) throws SQLException, ParseException {
+		String sql = "INSER INTO prestamo VALUES(?,?,?,?)";
+		SimpleDateFormat out = new SimpleDateFormat("yy-MM-dd");
+		SimpleDateFormat in = new SimpleDateFormat("dd/MM/yy");
+		
+		PreparedStatement p = connection.getConnection().prepareStatement( sql );
+		p.setString( 1,  codigo );
+		p.setString( 2, dni );
+		p.setString( 3, out.format( in.parse( fecha_alta ) ) );
+		p.setString( 4, out.format( in.parse( fecha_dev ) ) );
+		
+		p.executeUpdate();
+	}
+	
 	
 }

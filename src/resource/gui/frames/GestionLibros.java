@@ -3,6 +3,7 @@ package resource.gui.frames;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
@@ -48,6 +49,7 @@ public class GestionLibros extends JFrame {
 	private ToggleButton	toggle;
 	private JMenuItem		aPDF;
 	private JMenuItem		aHTML;
+	private DefaultButton	addPrestamo;
 	
 	
 	private GestionLibros() {
@@ -69,10 +71,12 @@ public class GestionLibros extends JFrame {
 		remove  = new LigthButton("");
 		add		= new LigthButton("");
 		search	= new DefaultButton("");
+		addPrestamo = new DefaultButton("");
 		
 		remove.setIcon( new ImageIcon( ImageManager.getImage( "rm.png" ) ) );
 		add.setIcon( new ImageIcon( ImageManager.getImage( "add.png" ) ) );
 		search.setIcon( new ImageIcon( ImageManager.getImage( "search.png" ) ) );
+		addPrestamo.setIcon( new ImageIcon( ImageManager.getImage( "add.png" ) ) );
 		
 		libroPanel		 			 = new DefaultPanel( new GridBagLayout() );
 		GridBagConstraints c = new GridBagConstraints();
@@ -106,6 +110,11 @@ public class GestionLibros extends JFrame {
 		c.gridx = 0;
 		c.gridy	= 0;
 		prestamoPanel.add( toggle, c );
+		
+		c.gridx = 0;
+		c.gridy	= 1;
+		c.gridwidth = 2;
+		prestamoPanel.add( addPrestamo, c );
 		
 		JScrollPane lib = new JScrollPane( tablaLibros );
 		JScrollPane pre = new JScrollPane( tablaPrestamos );

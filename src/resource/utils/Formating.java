@@ -24,8 +24,4 @@ public final class Formating {
 		System.out.println( string + String.format(" \n %-30s", out) );
 		return out;
 	}
-	
-	public static void main(String[] args) {
-		System.out.println( toHTML(  "Esto es es una prueba \n de formateo de html \n formateado." ) );
-	}
 }

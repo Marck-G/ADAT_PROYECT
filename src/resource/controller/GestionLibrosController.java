@@ -82,7 +82,8 @@ public class GestionLibrosController {
 		window.getTablaLibros().setModel( model );
 		} catch (Exception e) {
 			e.printStackTrace();
-			new DefaultDialog( Formating.toHTML( e.getClass() + "\n" +e.getMessage() ) );
+			new DefaultDialog( Formating.toHTML( e.getClass() + "\n" 
+					+e.getMessage() ) );
 		} 
 	}
 	
@@ -90,7 +91,8 @@ public class GestionLibrosController {
 		window.addWindowListener( new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				MenuPrincipalController.instancia().getWindow().setVisible( true );
+				MenuPrincipalController.instancia().getWindow().setVisible(
+						true );
 				window.dispose();
 			}
 		});
@@ -144,11 +146,13 @@ public class GestionLibrosController {
 			public void actionPerformed(ActionEvent arg0) {
 				String codigo;
 				if( (codigo = window.getTfSearch().getText() ).isEmpty() ) {
-					new DefaultDialog("Introduce el código del nuevo libro en el campo");
+					new DefaultDialog(
+							"Introduce el código del nuevo libro en el campo");
 					return;
 				}
 				try {
-					Libro n = new Libro( codigo, "", "","", "", "", Estado.NUEVO );
+					Libro n = new Libro( codigo, "", "","", "", "", 
+							Estado.NUEVO );
 					LibrosController.instancia().addLibro( n );
 					// actualizamos la base de datos
 					updateDataBase();
@@ -179,7 +183,8 @@ public class GestionLibrosController {
 				int row;
 				if( !( codigo = window.getTfSearch().getText() ).isEmpty() ) {
 					for (row = 0; row < window.getTablaLibros().getRowCount() && 
-							!( ( String ) model.getValueAt( row, 0 ) ).equals( codigo ); row++);
+						!( ( String ) model.getValueAt( row, 0 ) ).equals( 
+								codigo ); row++);
 				}else {
 					row = window.getTablaLibros().getSelectedRow();
 					codigo = (String) model.getValueAt( row, 0 );
@@ -200,11 +205,13 @@ public class GestionLibrosController {
 		window.getTfSearch().setText("");
 	}
 	private void update() {
-		window.getTablaLibros().addPropertyChangeListener( new PropertyChangeListener() {
+		window.getTablaLibros().addPropertyChangeListener( 
+				new PropertyChangeListener() {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent arg0) {
-				if( arg0.getPropertyName().equals( "tableCellEditor" ) && !window.getTablaLibros().isEditing() ) {
+				if( arg0.getPropertyName().equals( "tableCellEditor" ) && 
+						!window.getTablaLibros().isEditing() ) {
 					int x = window.getTablaLibros().getSelectedRow();
 					String codigo = (String) model.getValueAt( x, 0 );
 					String[] data = {
@@ -214,7 +221,8 @@ public class GestionLibrosController {
 							model.getValueAt( x, 3 ) + "",
 							model.getValueAt( x, 4 ) + "",
 							model.getValueAt( x, 5 ) + "",
-							Estado.getEstadoFrom( model.getValueAt( x, 6 ).toString() ).estado()
+							Estado.getEstadoFrom( 
+								model.getValueAt( x, 6 ).toString() ).estado()
 					};
 					Libro l = Libro.toLibro( data );
 					try {
