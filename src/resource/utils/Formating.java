@@ -18,9 +18,8 @@ public final class Formating {
 	 */
 	public static String toHTML( String string ) {
 		String out = "<html>";
-		for (String str : string.split( "\n" ) ) {
-			out += str + "<br/>";
-		}
+		out = out.replace( "\n", "<br>" );
+		out = out.replace( "\t", "&nbsp;&nbsp;&nbsp;&nbsp;" );
 		out += "</html>";
 		return out;
 	}
