@@ -84,7 +84,6 @@ public class PrestamoController {
 	 * @throws AlumnoNotFoundException
 	 */
 	public ArrayList<Prestamo> getPrestamos( int type ) throws SQLException, LibroNotFoundException, AlumnoNotFoundException{
-		
 		switch ( type ) {
 		case DEVUELTO:
 			return getPrestamosHistoricos();
@@ -109,7 +108,7 @@ public class PrestamoController {
 	public void setPrestamoDevuelto( Prestamo p ) throws SQLException {
 		String sql1 = "DELETE FROM prestamo WHERE alumno = ? AND libro = ? AND fecha_alta = ?";
 		String sql2 = "INSERT INTO historico(alumno, libro, fecha_alta, fecha_dev) VALUES( ?,?,?,?)";
-		SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		//Borramos de la tabla de prestamos
 		PreparedStatement rm = connection.getConnection().prepareStatement(sql1);
 		rm.setString( 1, p.getAlumno().getDni() );
@@ -131,12 +130,12 @@ public class PrestamoController {
 			String fecha_alta, 
 			String fecha_dev ) throws SQLException, ParseException {
 		String sql = "INSER INTO prestamo VALUES(?,?,?,?)";
-		SimpleDateFormat out = new SimpleDateFormat("yy-MM-dd");
+		SimpleDateFormat out = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat in = new SimpleDateFormat("dd/MM/yy");
 		
 		PreparedStatement p = connection.getConnection().prepareStatement( sql );
-		p.setString( 1,  codigo );
-		p.setString( 2, dni );
+		p.setString( 1,  dni );
+		p.setString( 2, codigo );
 		p.setString( 3, out.format( in.parse( fecha_alta ) ) );
 		p.setString( 4, out.format( in.parse( fecha_dev ) ) );
 		

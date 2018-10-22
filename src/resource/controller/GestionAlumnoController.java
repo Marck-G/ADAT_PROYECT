@@ -277,5 +277,10 @@ public class GestionAlumnoController {
 		return window;
 	}
 	
+	public void close() {
+		if( window != null )
+			window.dispose();
+	}
+	
 	
 }

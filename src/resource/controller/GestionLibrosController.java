@@ -14,6 +14,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
+import resource.gui.frames.AddPrestamo;
 import resource.gui.frames.GestionLibros;
 import resource.gui.frames.components.tables.DefaultTable;
 import resource.gui.frames.dialog.DefaultDialog;
@@ -58,6 +59,7 @@ public class GestionLibrosController {
 		update();
 		btnEvent();
 		tableEvent();
+		AddPrestamo();
 		exit();
 	}
 	
@@ -261,6 +263,18 @@ public class GestionLibrosController {
 		});
 	}
 
+	private void AddPrestamo() {
+		window.getAddPrestamo().addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AddPrestamoController.instancia()._init( new AddPrestamo() );
+			}
+		});
+
+	}
+	
+
 	private void startPrestamos( int type ) {
 		model = new DefaultTableModel();
 		model.addColumn( "Código" );
@@ -332,6 +346,9 @@ public class GestionLibrosController {
 			}
 		});
 	}
-	
+	public void close() {
+		if( window != null )
+			window.dispose();
+	}
 
 }

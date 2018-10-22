@@ -141,6 +141,13 @@ public class GestionLibros extends JFrame {
 	public JTabbedPane getTabs() {
 		return tabs;
 	}
+	/**
+	 * 
+	 * @return the addPrestamo
+	 */
+	public DefaultButton getAddPrestamo() {
+		return addPrestamo;
+	}
 
 	/**
 	 * @return the add

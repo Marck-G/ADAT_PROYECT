@@ -95,5 +95,9 @@ public class AddPrestamoController {
 		};
 	}
 	
+	public void close() {
+		if( window != null )
+			window.dispose();
+	}
 	
 }

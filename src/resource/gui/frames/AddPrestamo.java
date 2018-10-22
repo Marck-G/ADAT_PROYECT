@@ -31,7 +31,7 @@ public final class AddPrestamo extends JFrame {
 	private LigthButton	aceptar;
 	private DefaultButton cancelar;
 	
-	private AddPrestamo() {
+	public AddPrestamo() {
 		setDefaultCloseOperation( DISPOSE_ON_CLOSE );
 		setTitle("Agregar Prestamo");
 		setLayout( new GridBagLayout() );

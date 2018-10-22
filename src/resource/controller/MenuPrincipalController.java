@@ -55,6 +55,7 @@ public class MenuPrincipalController {
 		});
 	}
 
+	//cerramos todas las ventanas
 	private void exit() {
 		window.getBtnExit().addActionListener( new ActionListener() {			
 			@Override
@@ -62,12 +63,13 @@ public class MenuPrincipalController {
 				// cerramos todas las ventanas instanciadas
 				window.dispose();	
 				try {
-					GestionAlumnos.instancia().dispose();
+					GestionAlumnoController.instancia().close();
 					ConectorFactory.getBaseActiva().close();
 				} catch (SQLException e) {
 					new DefaultDialog( e.getMessage() );
 				}
-				GestionLibros.instancia().dispose();
+				GestionLibrosController.instancia().close();
+				AddPrestamoController.instancia().close();
 				Configuracion.instancia().dispose();
 			}
 		});	

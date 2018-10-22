@@ -21,7 +21,6 @@ public final class Formating {
 		out += string.replace( "\n", "<br>" );
 		out = out.replace( "\t", "&nbsp;&nbsp;&nbsp;&nbsp;" );
 		out += "</html>";
-		System.out.println( string + String.format(" \n %-30s", out) );
 		return out;
 	}
 }
