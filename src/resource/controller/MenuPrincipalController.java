@@ -29,6 +29,10 @@ public class MenuPrincipalController {
 	private MenuPrincipalController() {
 	}
 	
+	/**
+	 * Iniciamos el controlador 
+	 * @param w Ventana de la que se hara cargo
+	 */
 	public void _init( MenuPrincipal w ) {
 		window = w;
 		ConectorFactory.setDataBase( ConectorFactory.MYSQL_DB );
@@ -43,6 +47,7 @@ public class MenuPrincipalController {
 		librosView();
 	}
 	
+	// evento para la configuracion
 	private void config() {
 		window.getBtnOtros().addActionListener( new ActionListener() {
 			
@@ -74,7 +79,7 @@ public class MenuPrincipalController {
 			}
 		});	
 	}
-
+	// evento para mostrar la ventana de alumno
 	private void alumnoView() {
 		window.getBtnAlumnos().addActionListener( new ActionListener() {
 			
@@ -94,6 +99,7 @@ public class MenuPrincipalController {
 		});					
 	}
 	
+	//evento para mostrar la ventana de libros
 	private void librosView() {
 		window.getBtnBiblioteca().addActionListener( new ActionListener() {
 			

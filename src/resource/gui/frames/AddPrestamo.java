@@ -126,11 +126,6 @@ public final class AddPrestamo extends JFrame {
 		c.gridy = 5;
 		getContentPane().add( cancelar, c );
 	}
-	
-	public static void main(String[] args) {
-		AddPrestamoController.instancia()._init( new AddPrestamo() );
-		
-	}
 
 	/**
 	 * @return the codigo
