@@ -103,7 +103,7 @@ public class LibrosController {
 		pr.setString( 1, codigo );
 		ResultSet resul = connection.executeStatement( pr );
 		if( resul.next() )
-		return new Libro(
+			return new Libro(
 				resul.getString( "codigo" ),
 				resul.getString( "isbn" ),
 				resul.getString( "titulo" ),

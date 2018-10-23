@@ -88,6 +88,7 @@ public class AddPrestamoController {
 							window.getDni().getText(), 
 							window.getFecha_alta().getText(), 
 							window.getFecha_dev().getText() );
+					window.dispose();
 				} catch (Exception e1) {
 					new DefaultDialog( e1.getMessage() );
 				}

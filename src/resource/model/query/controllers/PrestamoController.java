@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import resource.model.beans.Alumno;
+import resource.model.beans.Libro;
 import resource.model.beans.Prestamo;
 import resource.model.conector.ConectorFactory;
 import resource.model.conector.DataBaseConection;
@@ -39,20 +41,26 @@ public class PrestamoController {
 		connection = ConectorFactory.getBaseActiva();
 	}
 	
-	private ArrayList<Prestamo> getPrestamosActivos() throws SQLException, AlumnoNotFoundException, LibroNotFoundException{
+	private ArrayList<Prestamo> getPrestamosActivos() throws SQLException{
 		ArrayList<Prestamo> out = new ArrayList<Prestamo>();
 		String sql = "SELECT libro, alumno, fecha_alta, fecha_dev from prestamo";
 		ResultSet resul = connection.executeSql(sql);
 		while ( resul.next() ) {
 			Date fec_al = new Date( resul.getDate("fecha_alta").getTime() );
 			Date fec_dev = new Date( resul.getDate("fecha_dev").getTime() );
-			Prestamo p = new Prestamo( 
-						LibrosController.instancia().getLibrosCodigo( resul.getString( "libro" ) ),
-						AlumnosController.instancia().getAlumno( resul.getString( "alumno" ) ).get(0),
-						fec_al,
-						fec_dev,
-						false );
-			out.add( p );
+			Libro l = null;
+			try {
+				Prestamo p = new Prestamo( 
+							LibrosController.instancia().getLibrosCodigo( resul.getString( "libro" ) ),
+							AlumnosController.instancia().getAlumno( resul.getString( "alumno" ) ).get(0),
+							fec_al,
+							fec_dev,
+							false );
+				out.add( p );
+			} catch (LibroNotFoundException | AlumnoNotFoundException e) {
+				System.out.println( e.getMessage() );
+			}
+			
 		}
 		return out;
 	}
@@ -64,13 +72,18 @@ public class PrestamoController {
 		while ( resul.next() ) {
 			Date fec_al = new Date( resul.getDate("fecha_alta").getTime() );
 			Date fec_dev = new Date( resul.getDate("fecha_dev").getTime() );
-			Prestamo p = new Prestamo( 
+			try {
+				Prestamo p = new Prestamo( 
 						LibrosController.instancia().getLibrosCodigo( resul.getString( "libro" ) ),
 						AlumnosController.instancia().getAlumno( resul.getString( "alumno" ) ).get(0),
 						fec_al,
 						fec_dev,
 						true );
 			out.add( p );
+			} catch (LibroNotFoundException | AlumnoNotFoundException e) {
+				System.out.println( e.getMessage() );
+			}
+			
 		}
 		return out;
 	}
@@ -129,7 +142,7 @@ public class PrestamoController {
 			String dni,
 			String fecha_alta, 
 			String fecha_dev ) throws SQLException, ParseException {
-		String sql = "INSER INTO prestamo VALUES(?,?,?,?)";
+		String sql = "INSERT INTO prestamo VALUES(?,?,?,?)";
 		SimpleDateFormat out = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat in = new SimpleDateFormat("dd/MM/yy");
 		
