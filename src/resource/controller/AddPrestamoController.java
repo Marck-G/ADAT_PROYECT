@@ -5,6 +5,12 @@ import java.awt.event.ActionListener;
 import resource.gui.frames.AddPrestamo;
 import resource.gui.frames.components.inputs.DefaultInput;
 import resource.gui.frames.dialog.DefaultDialog;
+import resource.model.beans.Alumno;
+import resource.model.beans.Libro;
+import resource.model.exceptions.AlumnoNotFoundException;
+import resource.model.exceptions.LibroNotFoundException;
+import resource.model.query.controllers.AlumnosController;
+import resource.model.query.controllers.LibrosController;
 import resource.model.query.controllers.PrestamoController;
 import resource.utils.Formating;
 
@@ -79,18 +85,31 @@ public class AddPrestamoController {
 						window.getCodigo().getText().isEmpty() || 
 						window.getFecha_alta().getText().isEmpty() ||
 						window.getFecha_dev().getText().isEmpty()) {
+					//si hay campos vacios
 					new DefaultDialog( "Rellena todos los campos" );
 					return;
 				}
 				try {
-					PrestamoController.instancia().addPrestamo(
-							window.getCodigo().getText(),
-							window.getDni().getText(), 
-							window.getFecha_alta().getText(), 
-							window.getFecha_dev().getText() );
-					window.dispose();
+					// agregamos el prestamo
+					try {
+						Alumno a = AlumnosController.instancia().getAlumno( window.getDni().getText() ).get(0);
+						Libro l = LibrosController.instancia().getLibrosCodigo( window.getCodigo().getText() );
+						PrestamoController.instancia().addPrestamo(
+								l.getCodigo(),
+								a.getDni(), 
+								window.getFecha_alta().getText(), 
+								window.getFecha_dev().getText() );
+						window.dispose();
+					} catch (AlumnoNotFoundException e2) {
+						new DefaultDialog( "No existe el alumno con dni: " + window.getDni().getText()  );
+						return;
+					}catch ( LibroNotFoundException e2) {
+						new DefaultDialog( "No existe el libro con el código: " + window.getCodigo().getText()  );
+						return;
+					}
+					
 				} catch (Exception e1) {
-					new DefaultDialog( e1.getMessage() );
+					new DefaultDialog( Formating.toHTML( e1.getMessage() ) );
 				}
 			}
 		};
