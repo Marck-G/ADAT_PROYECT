@@ -1,0 +1,121 @@
+.nav-bar{
+    background: rgba(64, 163, 133, 1);
+    float: left;
+    width: 23vw;
+    height: calc(100vh - 20px);
+    padding: 10px;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 5px 0px 20px 0 #0000005f;
+    -webkit-box-shadow: 5px 0px 20px 0 #0000005f;
+    -o-box-shadow: 5px 0px 20px 0 #0000005f;
+    -moz-box-shadow: 5px 0px 20px 0 #0000005f;
+    position: fixed;
+    top: 0;
+    left: -80vw;
+    transition: all .5s;
+}
+
+.nav-bar .nav-title{
+    color: white;
+    text-align: center;
+}
+
+.nav-bar .nav a{
+    color: white;
+    text-decoration: none;
+}
+
+.nav-bar .nav a:hover{
+    text-decoration: underline;
+    font-weight: bolder;
+}
+
+.nav-bar .nav a:active{
+    color: rgb(196, 89, 89);
+    text-decoration: line-through;
+}
+
+.nav-bar .nav a:visited{
+    color: rgb(68, 73, 22);
+    text-decoration: underline;   
+}
+
+.nav-bar .return-btn, .nav-bar .return-btn-hide {
+    position: absolute;
+    display: block;
+    cursor: pointer;
+    padding: 0 10px;
+    font-size: 1.5em;  
+    transition:  all .5s;
+}
+
+.nav-bar .return-btn{
+    left: 20vw;
+    border-radius: 7px; 
+    top: 20px;
+}
+
+.nav-bar .return-btn:hover{
+    border: solid 1px white; 
+}
+
+
+.nav-bar .btn-back{
+    position: relative;
+    color: white;
+    font-weight: bolder;
+    top: 0;
+}
+
+.nav-bar .return-btn:hover .btn-back{
+    color: #d32f2f;
+}
+
+.nav-bar .return-btn-hide {
+    position: fixed;
+    left: 0;
+    padding: 2px 15px;
+    top: 20px;
+    transform: scale(1.5);
+    background: #444;
+    font-weight: bolder;
+}
+.nav-bar .return-btn-hide:hover{
+    background: #666;
+    transform: translateX(10px);
+}
+
+.nav-bar ul li {
+    margin:  6px 0;
+    display: block;
+    padding: 5px;
+}
+
+
+@media ( min-width: 300px ) and ( max-width: 600px ){
+    .nav-bar{
+        width: 84vw;
+        font-size: 1.2em;
+        left: 0;
+    }
+    .nav-bar .return-btn{
+        left: 70vw;
+        top: 10px;
+    }
+}
+
+@media ( min-width: 600px ) and ( max-width: 1100px ) and (orientation:landscape){
+    .nav-bar{
+        width: 40vw;
+        left: 0;
+    }
+    .nav-bar .return-btn{
+        left: 35vw;
+        transform: scale(1.5);
+        top: 20px;
+    }
+    .nav-bar .return-btn .btn-back{
+        top: -8px;
+    }
+}
