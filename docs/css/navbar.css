@@ -1,3 +1,4 @@
+@import url("animation.css");
 .nav-bar{
     background: rgba(64, 163, 133, 1);
     float: left;
@@ -22,7 +23,7 @@
 }
 
 .nav-bar .nav a{
-    color: white;
+    color: #222;
     text-decoration: none;
 }
 
@@ -80,16 +81,62 @@
     transform: scale(1.5);
     background: #444;
     font-weight: bolder;
+    animation-name: reboteX;
+    animation-delay: .4s;
+    animation-duration: 4s;
 }
 .nav-bar .return-btn-hide:hover{
     background: #666;
     transform: translateX(10px);
+    
+}
+.nav-bar .return-btn:hover .btn-back{
+    animation-name: rotacion;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
 }
 
-.nav-bar ul li {
+.nav-bar .nav  ul li {
     margin:  6px 0;
     display: block;
     padding: 5px;
+    transition: all .5s;
+    
+}
+
+.nav-bar .nav li a{
+    display: block;
+    padding: 10px;
+}
+
+.nav .activated{
+    border-radius: 7px;
+    border: solid 1px white;
+    box-shadow: 0 5px 10px rgba( 0, 0, 0, 0.3);
+    transition: all .5s;
+}
+
+.nav li:hover{
+    border-radius: 7px;
+    border: solid 1px white;
+    box-shadow: 0 5px 10px rgba( 0, 0, 0, 0.3);
+    transform: translateY(-10px);
+    background: white;
+}
+
+.nav .activated:hover{
+    transform: translateY(-20px);
+     box-shadow: 0 15px 30px rgba( 0, 0, 0, 0.4);
+     background: rgba( 0, 0, 0, 0.4 );
+}
+
+.nav .activated a{
+    color: white !important;
+    font-weight: bolder;
+}
+
+.nav .activated a:hover{
+    text-decoration: none;
 }
 
 
@@ -97,7 +144,7 @@
     .nav-bar{
         width: 84vw;
         font-size: 1.2em;
-        left: 0;
+        left: 0vw;
     }
     .nav-bar .return-btn{
         left: 70vw;
@@ -116,6 +163,6 @@
         top: 20px;
     }
     .nav-bar .return-btn .btn-back{
-        top: -8px;
+        top: 0;
     }
 }
