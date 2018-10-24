@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.font.ImageGraphicAttribute;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -54,6 +55,8 @@ public class GestionLibros extends JFrame {
 	
 	private GestionLibros() {
 		setDefaultCloseOperation( HIDE_ON_CLOSE );
+		setTitle( "Gestión de libros" );
+		setIconImage( new ImageIcon( ImageManager.getImage( "book.png" ) ).getImage() );
 		components();
 		
 		setSize(800,600);

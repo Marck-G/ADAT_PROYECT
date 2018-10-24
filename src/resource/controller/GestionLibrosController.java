@@ -246,13 +246,14 @@ public class GestionLibrosController {
 				// está en la pestaña de libros
 				if( window.getTabs().getSelectedIndex() == 0 ) {
 					startLibros();
-					
+					window.setTitle( "Gestión de libros");
 					window.getLibroPanel().setVisible( true );
 					window.getPrestamoPanel().setVisible( false );
 					window.getContentPane().add( window.getLibroPanel(), "East");
 				}else {
 					startPrestamos( PrestamoController.NO_DEVUELTO );
 					window.getLibroPanel().setVisible( false );
+					window.setTitle( "Gestión de prestamos" );
 					window.getToggle().changeActivated();
 					window.getPrestamoPanel().setVisible( true );
 					window.getContentPane().add( window.getPrestamoPanel() , "East" );

@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -17,6 +18,8 @@ import resource.controller.AddPrestamoController;
 import resource.gui.frames.components.buttons.DefaultButton;
 import resource.gui.frames.components.buttons.LigthButton;
 import resource.gui.frames.components.inputs.DefaultInput;
+import resource.gui.frames.components.panels.DefaultPanel;
+import resource.gui.resources.img.ImageManager;
 import resource.model.beans.Estado;
 import resource.utils.Formating;
 
@@ -34,6 +37,7 @@ public final class AddPrestamo extends JFrame {
 	public AddPrestamo() {
 		setDefaultCloseOperation( DISPOSE_ON_CLOSE );
 		setTitle("Agregar Prestamo");
+		setIconImage( new ImageIcon( ImageManager.getImage("add.png") ).getImage() );
 		setLayout( new GridBagLayout() );
 		elementos();
 		setMinimumSize(new Dimension(500, 390));
