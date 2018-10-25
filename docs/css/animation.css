@@ -35,13 +35,14 @@
     0%{
         transform: rotate(0deg);
     }
+    
     20%{
         transform: rotate( 40deg);
     }
+
     25%{
         transform: rotate( 100deg);
     }
-
 
     50%{
         transform: rotate( 120deg);
