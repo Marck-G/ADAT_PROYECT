@@ -50,6 +50,7 @@ public class LibrosController {
 			out.add( l );
 		}
 		resul.close();
+		connection.closeLastStatement();
 		if( out.isEmpty() )
 			throw new EmptyTableException();
 		return out;

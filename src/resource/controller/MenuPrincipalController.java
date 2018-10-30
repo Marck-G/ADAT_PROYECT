@@ -69,6 +69,7 @@ public class MenuPrincipalController {
 				window.dispose();	
 				try {
 					GestionAlumnoController.instancia().close();
+					// cerramos la conexión con la base de datos
 					ConectorFactory.getBaseActiva().close();
 				} catch (SQLException e) {
 					new DefaultDialog( e.getMessage() );

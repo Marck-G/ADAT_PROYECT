@@ -54,7 +54,8 @@ import java.util.Iterator;
 		historial.add( p );
 		//comprobamos el numero de elementos
 		checkHistorial();
-		return p.executeQuery();
+		ResultSet out = p.executeQuery();
+		return out;
 	}
 	
 	/**
@@ -87,7 +88,8 @@ import java.util.Iterator;
 		return getStatement( historial.size() - 1 );
 	}
 	
-	private void checkHistorial() {
+	// revisa que solo haya el maximo de elementos en el historial
+	private void checkHistorial() throws SQLException {
 		int leng;
 		Iterator< PreparedStatement > it = historial.iterator();
 		// comprobamos que no se pase del maximo de elementos
@@ -95,6 +97,13 @@ import java.util.Iterator;
 		while (it.hasNext() && ( leng = historial.size() ) > MAX_HISTORIAL ) {
 			PreparedStatement pre = (PreparedStatement) it.next();
 			it.remove();
+		}
+		// revisamos que tods los statements esten cerrados
+		// así nos ahorramos tener que cerrarlos constantemente
+		for (int i = 0; i < historial.size() - 1 ; i++) {
+			if ( !historial.get( i ).isClosed() ) {
+				historial.get( i ).close();
+			}
 		}
 	}
 	/**
@@ -104,6 +113,16 @@ import java.util.Iterator;
 	public void close() throws SQLException {
 		connection.close();
 	}
+	
+	/**
+	 * Cierra la última conexión a la base de datos
+	 * @throws SQLException
+	 */
+	public void closeLastStatement() throws SQLException {
+		historial.get( historial.size() - 1 ).close();
+	}
+	
+
 
 	/**
 	 * @return the url

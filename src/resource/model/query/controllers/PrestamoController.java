@@ -63,6 +63,7 @@ public class PrestamoController {
 			
 		}
 		resul.close();
+		connection.closeLastStatement();
 		return out;
 	}
 	
@@ -85,6 +86,8 @@ public class PrestamoController {
 				System.out.println( e.getMessage() );
 			}
 			
+			resul.close();
+			connection.closeLastStatement();
 		}
 		return out;
 	}
@@ -136,6 +139,8 @@ public class PrestamoController {
 		insert.setString( 3, format.format( p.getFecha_alta() ) );
 		insert.setString( 4, format.format( p.getFecha_devolucion() ) );
 		insert.executeUpdate();
+		insert.close();
+		rm.close();
 	}
 	
 	public void addPrestamo( 
@@ -154,6 +159,8 @@ public class PrestamoController {
 		p.setString( 4, out.format( in.parse( fecha_dev ) ) );
 		
 		p.executeUpdate();
+		
+		p.close();
 	}
 	
 	
