@@ -49,6 +49,7 @@ public class LibrosController {
 					Estado.getEstadoFrom( resul.getString( "estado" ) ) );
 			out.add( l );
 		}
+		resul.close();
 		if( out.isEmpty() )
 			throw new EmptyTableException();
 		return out;
@@ -86,6 +87,9 @@ public class LibrosController {
 					Estado.getEstadoFrom( resul.getString( "estado" ) ) );
 			out.add( l );
 		}
+		// Cerramos las conexiones
+		pr.close();
+		resul.close();
 		if( out.isEmpty() )
 			throw new LibroNotFoundException();
 		return out;
@@ -102,8 +106,9 @@ public class LibrosController {
 		PreparedStatement pr = connection.getConnection().prepareStatement( sql );
 		pr.setString( 1, codigo );
 		ResultSet resul = connection.executeStatement( pr );
+		Libro out = null;
 		if( resul.next() )
-			return new Libro(
+			out =  new Libro(
 				resul.getString( "codigo" ),
 				resul.getString( "isbn" ),
 				resul.getString( "titulo" ),
@@ -111,7 +116,11 @@ public class LibrosController {
 				resul.getString( "editorial" ), 
 				resul.getString( "asignatura" ),
 				Estado.getEstadoFrom( resul.getString( "estado" ) ) );
-		throw new LibroNotFoundException();
+		resul.close();
+		pr.close();
+		if( out == null )
+			throw new LibroNotFoundException();
+		return out;
 	}
 	
 	/**
@@ -154,8 +163,10 @@ public class LibrosController {
 	 * @throws SQLException
 	 */
 	public void addLibro() throws SQLException {
-		if( addLibros != null ) 
+		if( addLibros != null ) {
 			addLibros.executeBatch();
+			addLibros.close();
+		}
 	}
 	
 	/**
@@ -199,10 +210,16 @@ public class LibrosController {
 	public void removeLibro() throws SQLException {
 		if( rmLibros != null ) {
 			rmLibros.executeBatch();
-			rmLibros.clearBatch();
+			rmLibros.close();
 		}
 	}
 	
+	/**
+	 * Modifica un libro que se pasa y actualiza sus datos en la base de datos
+	 * @param codigo
+	 * @param libro
+	 * @throws SQLException
+	 */
 	public void updateLibro( String codigo, Libro libro ) throws SQLException {
 		String sql = "UPDATE libro set isbn=?, titulo=?, autor=?, editorial=?, asignatura=?, estado=? "
 				+ " WHERE codigo=?";
@@ -215,6 +232,7 @@ public class LibrosController {
 		pr.setString( 6, libro.getEstado().estado() );
 		pr.setString( 7, libro.getCodigo() );
 		pr.executeUpdate();
+		pr.close();
 	}
 	
 

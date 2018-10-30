@@ -64,6 +64,7 @@ public class AlumnosController {
 			//lo guardamos en el array de salida
 			out.add( l );
 		}
+		r.close();
 		if ( !out.isEmpty() )
 			return out;			
 		throw new EmptyTableException();
@@ -92,6 +93,7 @@ public class AlumnosController {
 					r.getString( "ap2" ) );
 			out.add( a );
 		}
+		r.close();
 		if( !out.isEmpty() )
 			return out;
 		// no se encontro al alumno
@@ -141,8 +143,10 @@ public class AlumnosController {
 		}
 	}
 	public void addAlumno() throws SQLException {
-		if( addAlum != null )
+		if( addAlum != null ) {
 			addAlum.executeBatch();
+			addAlum.close();
+		}
 	}
 	
 	/**
@@ -187,6 +191,7 @@ public class AlumnosController {
 		if ( rmAlum != null ) {
 			rmAlum.executeBatch();
 			rmAlum.clearBatch();
+			rmAlum.close();
 		}
 	}
 	
@@ -207,6 +212,7 @@ public class AlumnosController {
 	public void update() throws SQLException {
 		if( updateAlum != null ) {
 			updateAlum.executeBatch();
+			updateAlum.close();
 		}
 	}
 	

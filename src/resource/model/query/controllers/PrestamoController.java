@@ -62,6 +62,7 @@ public class PrestamoController {
 			}
 			
 		}
+		resul.close();
 		return out;
 	}
 	
