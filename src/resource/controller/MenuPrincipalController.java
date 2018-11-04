@@ -35,7 +35,7 @@ public class MenuPrincipalController {
 	 */
 	public void _init( MenuPrincipal w ) {
 		window = w;
-		ConectorFactory.setDataBase( ConectorFactory.MYSQL_DB );
+		ConectorFactory.setDataBase( ConectorFactory.DERBY_DB );
 		try {
 			ConectorFactory.getBaseActiva().conect();
 		} catch ( Exception e ) {
@@ -53,8 +53,14 @@ public class MenuPrincipalController {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				Configuracion.setBdSelection(ConectorFactory.MYSQL_DB);
 				Configuracion.instancia().setVisible( true );
-				Configuracion.instancia().setSelected(ConectorFactory.MYSQL_DB);
+				
+				try {
+					ConectorFactory.getBaseActiva().conect();
+				} catch (Exception e) {
+					new DefaultDialog( Formating.toHTML( e.getMessage() ) );
+				}
 				
 			}
 		});

@@ -11,7 +11,7 @@ package resource.model.conector;
 public class ConectorFactory {
 	// ====| CONSTANTES DE BASE DE DATOS |====
 	public static final int MYSQL_DB	= 36;
-	public static final int SQLITE_DB	= 40;
+	public static final int DERBY_DB	= 40;
 	
 	private static DataBaseConection baseActiva;
 	
@@ -30,8 +30,11 @@ public class ConectorFactory {
 					"jdbc:mysql://127.0.0.1:3306/gestion_libros",
 					"root", "tiger");
 			return MysqlConector.instance();
-		case SQLITE_DB:
-			return null;
+		case DERBY_DB:
+			DerbyConector.instancia().setConectionData( 
+					DerbyConector.instancia().getDbDir() + ";create=true",
+					"","");
+			return DerbyConector.instancia();
 		default:
 			return null;
 		}

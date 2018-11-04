@@ -87,7 +87,7 @@ public class GestionAlumnoController {
 				
 			});
 		} catch (SQLException e) {
-			new DefaultDialog( e.getSQLState() );
+			new DefaultDialog( e.getMessage() );
 		} //catch(  )
 	}
 	
@@ -208,7 +208,7 @@ public class GestionAlumnoController {
 			AlumnosController.instancia().addAlumno();
 			AlumnosController.instancia().update();
 		} catch (SQLException ex) {
-			new DefaultDialog( ex.getCause().toString() );
+			new DefaultDialog( ex.getMessage() );
 		}
 	}
 	/**
@@ -240,7 +240,7 @@ public class GestionAlumnoController {
 					AlumnosController.instancia().removeAlumno( dni );
 					m.removeRow( i );
 				} catch (SQLException e) {
-					new DefaultDialog( e.getCause().toString() );
+					new DefaultDialog( e.getMessage() );
 				}
 				vaciarTf();
 			}

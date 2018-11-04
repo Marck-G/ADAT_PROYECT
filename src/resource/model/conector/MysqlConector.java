@@ -24,6 +24,7 @@ class MysqlConector extends DataBaseConection {
 		private MysqlConector() {
 			super();
 		}
+		
 				
 		@Override
 		public void conect() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {

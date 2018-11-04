@@ -3,6 +3,7 @@ package resource.gui.frames;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -15,6 +16,8 @@ import resource.gui.constants.Fonts;
 import resource.gui.frames.components.buttons.DefaultButton;
 import resource.gui.frames.components.panels.DefaultPanel;
 import resource.model.conector.ConectorFactory;
+import resource.model.conector.DerbyConector;
+import resource.model.conector.derby.TableCreation;
 
 /**
  * Pantalla de configuración de la aplicación
@@ -25,6 +28,7 @@ public final class Configuracion extends JDialog {
 	private static final long serialVersionUID = 5264980408571899105L;
 	
 	private static Configuracion instancia;
+	private static int bdSelection;
 	
 	public static Configuracion instancia() {
 		if( instancia == null )
@@ -38,7 +42,7 @@ public final class Configuracion extends JDialog {
 	private JButton	btnSalir;
 	
 	private Configuracion() {
-		setDefaultCloseOperation( DISPOSE_ON_CLOSE );
+		setDefaultCloseOperation( HIDE_ON_CLOSE );
 		setUndecorated(true);
 		setModal( true );
 		setContentPane( new DefaultPanel( new BorderLayout()) );
@@ -55,12 +59,12 @@ public final class Configuracion extends JDialog {
 		mysql.setForeground( getContentPane().getForeground() );
 		mysql.setFont( Fonts.BTN_FONT );
 		mysql.setFocusable( false );
-		mysql.setSelected( true );
-		sqlite = new JRadioButton("SQLite");
+		sqlite = new JRadioButton("Derby");
 		sqlite.setBackground( getContentPane().getBackground() );
 		sqlite.setForeground( getContentPane().getForeground() );
 		sqlite.setFont( Fonts.BTN_FONT );
 		sqlite.setFocusable( false );
+		setSelected();
 		
 		b.add( mysql );
 		b.add( sqlite );
@@ -73,6 +77,7 @@ public final class Configuracion extends JDialog {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				conectionManager();
 				dispose();
 				
 			}
@@ -86,16 +91,41 @@ public final class Configuracion extends JDialog {
 		
 	}
 	
+	private void conectionManager() {
+		String conectorName = ConectorFactory.getBaseActiva().getClass().getSimpleName();
+		if( sqlite.isSelected()  && conectorName.equals("MysqlConector") ) {
+			try {
+				ConectorFactory.getBaseActiva().close();
+				ConectorFactory.setDataBase( ConectorFactory.DERBY_DB );
+				//comprobamos que existan las tablas
+				// en caso de que no existan se las crea
+				dbStatus();
+				return;
+			} catch (SQLException e) {}
+		}
+		if( mysql.isSelected() && conectorName.equals("DerbyConector") ) {
+			try {
+				ConectorFactory.getBaseActiva().close();
+				ConectorFactory.setDataBase( ConectorFactory.MYSQL_DB );
+				return;
+			} catch (SQLException e) {}
+		}
+	}
+	
+	public static void setBdSelection( int bdId ) {
+		bdSelection = bdId;
+	}
+	
 	/**
 	 * Establecemos cual es la conexi&oacute;n actual
 	 * @param id de la conexi&oacute;n
 	 */
-	public void setSelected( int id ) {
-		switch ( id ) {
+	public void setSelected() {
+		switch ( bdSelection ) {
 		case ConectorFactory.MYSQL_DB:
 			mysql.setSelected( true );
 			break;
-		case ConectorFactory.SQLITE_DB:
+		case ConectorFactory.DERBY_DB:
 			sqlite.setSelected( true);
 			break;
 
@@ -112,9 +142,45 @@ public final class Configuracion extends JDialog {
 		if( mysql.isSelected() )
 			return ConectorFactory.MYSQL_DB;
 		if( sqlite.isSelected() )
-			return ConectorFactory.SQLITE_DB;
+			return ConectorFactory.DERBY_DB;
 		return -1;
 	}
 	
+	// para bases embebidas:
+	public void dbStatus() {
+		if ( !DerbyConector.instancia().existDataBase() ) {
+			InfoFrame.instancia().setVisible( true );
+			String msg = "No se han encontrado las tablas. Se crearán ahora.";
+			InfoFrame.instancia().addLine( msg );
+			try {
+				InfoFrame.instancia().addLine( "Creando la tabla libro...");
+				TableCreation.instancia().createTableLibro();
+				
+			} catch (SQLException e) {
+				InfoFrame.instancia().addLine( e.getMessage() );
+			}
+			try {
+				InfoFrame.instancia().addLine( "Creando la tabla alumno...");
+				TableCreation.instancia().createTableAlumno();
+				
+			} catch ( SQLException e) {
+				InfoFrame.instancia().addLine( e.getMessage() );
+			}
+			
+			try {
+				InfoFrame.instancia().addLine( "Creando la tabla prestamo...");
+				TableCreation.instancia().createTablePrestamo();
+				
+			} catch (SQLException e) {
+				InfoFrame.instancia().addLine( e.getMessage() );
+			}
+			try {
+				InfoFrame.instancia().addLine( "Creando la tabla historico...");
+				TableCreation.instancia().createTableHistorico();
+			} catch (SQLException e) {
+				InfoFrame.instancia().addLine( e.getMessage() );
+			}
+		}
+	}
 
 }
