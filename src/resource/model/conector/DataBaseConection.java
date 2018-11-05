@@ -50,12 +50,12 @@ import java.util.Iterator;
 	
 	public ResultSet executeSql( String sql ) throws SQLException {
 		PreparedStatement p = connection.prepareStatement( sql );
-		// añadimos al historial
-		historial.add( p );
 		//comprobamos el numero de elementos
 		checkHistorial();
-		ResultSet out = p.executeQuery();
-		return out;
+		// añadimos al historial
+		historial.add( p );
+		
+		return p.executeQuery();
 	}
 	
 	/**
@@ -65,10 +65,11 @@ import java.util.Iterator;
 	 * @throws SQLException
 	 */
 	public ResultSet executeStatement( PreparedStatement pr ) throws SQLException {
+		//comprobamos el numero de elementos
+		//checkHistorial();
 		// añadimos al historial
 		historial.add( pr );
-		//comprobamos el numero de elementos
-		checkHistorial();
+		
 		return pr.executeQuery();
 	}
 	/**
@@ -89,7 +90,7 @@ import java.util.Iterator;
 	}
 	
 	// revisa que solo haya el maximo de elementos en el historial
-	private void checkHistorial() throws SQLException {
+	public DataBaseConection checkHistorial() throws SQLException {
 		int leng;
 		Iterator< PreparedStatement > it = historial.iterator();
 		// comprobamos que no se pase del maximo de elementos
@@ -101,10 +102,14 @@ import java.util.Iterator;
 		// revisamos que tods los statements esten cerrados
 		// así nos ahorramos tener que cerrarlos constantemente
 		for (int i = 0; i < historial.size() - 1 ; i++) {
+			System.out.println(String.format("%-20s: %b","Elemento "+ i, historial.get( i ).isClosed()) );
 			if ( !historial.get( i ).isClosed() ) {
+				historial.get( i ).getResultSet().close();
 				historial.get( i ).close();
+				
 			}
 		}
+		return this;
 	}
 	/**
 	 * Cierra la conexi&oacute;n

@@ -1,8 +1,11 @@
 package resource.model.conector;
 
+import java.io.File;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import resource.model.conector.derby.TableCreation;
 
 public class DerbyConector extends DataBaseConection {
 	
@@ -24,7 +27,8 @@ public class DerbyConector extends DataBaseConection {
 	// cosntructor
 	private DerbyConector() {
 		// cogemos el directorio actual
-		String dirActual = this.getClass().getResource(".").getPath();
+		File file =  new File( this.getClass().getResource(".").getPath() ) ;
+		String dirActual = file.getAbsolutePath();
 		// obtenemos el indice de la carpeta bin
 		int mainDir = dirActual.indexOf( "bin" );
 		// nos quedamos con los directorios anteriores
@@ -38,6 +42,11 @@ public class DerbyConector extends DataBaseConection {
 	InstantiationException, IllegalAccessException {
 		Class.forName( "org.apache.derby.jdbc.EmbeddedDriver" );
 		connection = DriverManager.getConnection(url, username, pass );
+		connection.setAutoCommit(false);
+		if( !this.existDataBase() ) {
+			TableCreation.instancia().createTables();
+		}
+		connection.commit();
 	}
 	/**
 	 * 
@@ -77,7 +86,9 @@ public class DerbyConector extends DataBaseConection {
 		DerbyConector d = new DerbyConector();
 		d.setConectionData( d.getDbDir() + ";create=true", "", "");
 		d.conect();
-		System.out.println( d.getDbDir() );
+		
+		System.out.println( d.existDataBase() );
+		d.close();
 	}
 
 }
