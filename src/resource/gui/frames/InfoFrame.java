@@ -43,8 +43,9 @@ public class InfoFrame extends JFrame {
 	 * Agregamos una linea al textArea
 	 * @param line
 	 */
-	public void addLine( String line ) {
+	public InfoFrame addLine( String line ) {
 		addLine( line, true );
+		return this;
 	}
 	
 	/**
@@ -52,7 +53,7 @@ public class InfoFrame extends JFrame {
 	 * @param line
 	 * @param withPrompt
 	 */
-	public void addLine( String line, boolean withPrompt ) {
+	public InfoFrame addLine( String line, boolean withPrompt ) {
 		String h = textArea.getText();
 		String text = h;
 		if ( withPrompt ) // con prompt
@@ -60,6 +61,7 @@ public class InfoFrame extends JFrame {
 		else // sin prompt
 			text += "\n" + line;
 		textArea.setText( text );
+		return this;
 	}
 	
 	/**
@@ -71,7 +73,8 @@ public class InfoFrame extends JFrame {
 	}
 	
 	
-	public static void main(String[] args) {
-		new InfoFrame();
+	public InfoFrame visible(boolean b) {
+		super.setVisible(b);
+		return this;
 	}
 }

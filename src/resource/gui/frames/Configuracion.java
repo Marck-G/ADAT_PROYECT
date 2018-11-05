@@ -91,22 +91,32 @@ public final class Configuracion extends JDialog {
 		
 	}
 	
-	private void conectionManager() {
+	public void conectionManager() {
 		String conectorName = ConectorFactory.getBaseActiva().getClass().getSimpleName();
-		if( sqlite.isSelected()  && conectorName.equals("MysqlConector") ) {
+		if( sqlite.isSelected()   ) {
 			try {
 				ConectorFactory.getBaseActiva().close();
 				ConectorFactory.setDataBase( ConectorFactory.DERBY_DB );
+				try {
+					ConectorFactory.getBaseActiva().conect();
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+					
+				}
 				//comprobamos que existan las tablas
 				// en caso de que no existan se las crea
 				dbStatus();
 				return;
 			} catch (SQLException e) {}
 		}
-		if( mysql.isSelected() && conectorName.equals("DerbyConector") ) {
+		if( mysql.isSelected() ) {
 			try {
 				ConectorFactory.getBaseActiva().close();
 				ConectorFactory.setDataBase( ConectorFactory.MYSQL_DB );
+				try {
+					ConectorFactory.getBaseActiva().conect();
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+					InfoFrame.instancia().visible(true).addLine( e.getMessage() );
+				}
 				return;
 			} catch (SQLException e) {}
 		}
