@@ -93,7 +93,6 @@ public class AlumnosController {
 					r.getString( "ap2" ) );
 			out.add( a );
 		}
-		r.close();
 		if( !out.isEmpty() )
 			return out;
 		// no se encontro al alumno

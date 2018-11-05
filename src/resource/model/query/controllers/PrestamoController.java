@@ -62,8 +62,8 @@ public class PrestamoController {
 			}
 			
 		}
-		resul.close();
-		connection.closeLastStatement();
+		connection.checkHistorial().closeLastStatement();
+		
 		return out;
 	}
 	
@@ -86,8 +86,7 @@ public class PrestamoController {
 				System.out.println( e.getMessage() );
 			}
 			
-			resul.close();
-			connection.closeLastStatement();
+			
 		}
 		return out;
 	}

@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Sun Nov 04 14:10:46 CET 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-ded8-dbac-000006857800 
-on database directory /home/mk_dev/WORKSPACE/CLASE/Proyecto_Biblioteca/gestorLibros/db with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4459eb14 
-Loaded from file:/home/mk_dev/WORKSPACE/CLASE/Proyecto_Biblioteca/gestorLibros/lib/derby.jar
+Mon Nov 05 09:34:44 CET 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-e302-83e7-00000e243a20 
+on database directory C:\Users\dm2\eclipse-workspace\GestionPrestamoLibros\db with class loader sun.misc.Launcher$AppClassLoader@6d06d69c 
+Loaded from file:/C:/Users/dm2/eclipse-workspace/GestionPrestamoLibros/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=10.0.2+13-Ubuntu-1ubuntu0.18.04.3
-user.dir=/home/mk_dev/WORKSPACE/CLASE/Proyecto_Biblioteca/gestorLibros
-os.name=Linux
+java.runtime.version=1.8.0_161-b12
+user.dir=C:\Users\dm2\eclipse-workspace\GestionPrestamoLibros
+os.name=Windows 10
 os.arch=amd64
-os.version=4.15.0-38-generic
+os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
