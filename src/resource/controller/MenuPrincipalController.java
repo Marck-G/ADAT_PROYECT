@@ -78,6 +78,7 @@ public class MenuPrincipalController {
 					GestionAlumnoController.instancia().close();
 					// cerramos la conexión con la base de datos
 					ConectorFactory.getBaseActiva().getStatement(4).close();
+					System.out.println(ConectorFactory.getBaseActiva().getStatement(4).get);
 					ConectorFactory.getBaseActiva().checkHistorial().closeLastStatement();
 					ConectorFactory.getBaseActiva().close();
 				} catch (SQLException e) {
