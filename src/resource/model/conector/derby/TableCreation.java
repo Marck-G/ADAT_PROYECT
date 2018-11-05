@@ -24,20 +24,54 @@ public final class TableCreation {
 	}
 	
 	
+	public void createTables() throws SQLException {
+		createTableAlumno();
+		createTableLibro();
+		createTableHistorico();
+		createTablePrestamo();
+	}
+	
 	public void createTableLibro() throws SQLException {
-		conn.createStatement().execute( "Create table libro");
+		conn.createStatement().execute( "CREATE TABLE libro (" + 
+				"  codigo varchar(13) NOT NULL," + 
+				"  isbn varchar(13) DEFAULT NULL," + 
+				"  titulo varchar(70) DEFAULT NULL," + 
+				"  autor varchar(40) DEFAULT NULL," + 
+				"  editorial varchar(30) DEFAULT NULL," + 
+				"  asignatura varchar(20) DEFAULT NULL," + 
+				"  estado varchar(30) DEFAULT NULL," + 
+				"  PRIMARY KEY (codigo)" + 
+				")");
 	}
 	
 	public void createTableAlumno() throws SQLException {
-		conn.createStatement().execute( "Create table alumno");
+		conn.createStatement().execute( "CREATE TABLE alumno (" + 
+				"  dni varchar(9) NOT NULL," + 
+				"  nombre varchar(20) DEFAULT NULL," + 
+				"  ap1 varchar(30)," + 
+				"  ap2 varchar(30) DEFAULT NULL," + 
+				"  PRIMARY KEY (dni)" + 
+				")");
 	}
 	
 	public void createTablePrestamo() throws SQLException {
-		conn.createStatement().execute( "create table prestamo");
+		conn.createStatement().execute( "CREATE TABLE prestamo (" + 
+				"  alumno varchar(9) NOT NULL," + 
+				"  libro varchar(13) NOT NULL," + 
+				"  fecha_alta date NOT NULL," + 
+				"  fecha_dev date DEFAULT NULL," + 
+				"  PRIMARY KEY (alumno,libro,fecha_alta)" + 
+				")");
 	}
 	
 	public void createTableHistorico() throws SQLException {
-		conn.createStatement().execute( "Create table historico");
+		conn.createStatement().execute( "CREATE TABLE historico (" + 
+				"  alumno varchar(9) NOT NULL," + 
+				"  libro varchar(13) NOT NULL," + 
+				"  fecha_alta date NOT NULL," + 
+				"  fecha_dev date DEFAULT NULL," + 
+				"  PRIMARY KEY (alumno,libro,fecha_alta)" + 
+				")");
 
 	}
 	
