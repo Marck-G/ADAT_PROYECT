@@ -21,6 +21,7 @@ import resource.gui.frames.dialog.DefaultDialog;
 import resource.model.beans.Estado;
 import resource.model.beans.Libro;
 import resource.model.beans.Prestamo;
+import resource.model.conector.ConectorFactory;
 import resource.model.exceptions.AlumnoNotFoundException;
 import resource.model.exceptions.LibroNotFoundException;
 import resource.model.query.controllers.LibrosController;
@@ -184,10 +185,13 @@ public class GestionLibrosController {
 				String codigo;
 				int row;
 				if( !( codigo = window.getTfSearch().getText() ).isEmpty() ) {
+					// si el cuadro de busqueda no esta vacio
+					// buscamos en el modelo el libro que tenga el mismo codigo
 					for (row = 0; row < window.getTablaLibros().getRowCount() && 
 						!( ( String ) model.getValueAt( row, 0 ) ).equals( 
 								codigo ); row++);
 				}else {
+					
 					row = window.getTablaLibros().getSelectedRow();
 					codigo = (String) model.getValueAt( row, 0 );
 				}
@@ -292,8 +296,10 @@ public class GestionLibrosController {
 			for (Prestamo p : libros) {
 				model.addRow( p.toArray() );
 			}
+			ConectorFactory.getBaseActiva().closeLastStatement();
 		} catch (SQLException | LibroNotFoundException | AlumnoNotFoundException e) {
 			new DefaultDialog( e.getMessage() );
+			e.printStackTrace();
 		}
 		
 	}

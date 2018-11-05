@@ -53,14 +53,15 @@ public class MenuPrincipalController {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Configuracion.setBdSelection(ConectorFactory.MYSQL_DB);
+				Configuracion.setBdSelection(ConectorFactory.DERBY_DB);
 				Configuracion.instancia().setVisible( true );
 				
-				try {
+			/*	try {
 					ConectorFactory.getBaseActiva().conect();
+					Configuracion.instancia().conectionManager();
 				} catch (Exception e) {
 					new DefaultDialog( Formating.toHTML( e.getMessage() ) );
-				}
+				}*/
 				
 			}
 		});
@@ -76,8 +77,11 @@ public class MenuPrincipalController {
 				try {
 					GestionAlumnoController.instancia().close();
 					// cerramos la conexión con la base de datos
+					ConectorFactory.getBaseActiva().getStatement(4).close();
+					ConectorFactory.getBaseActiva().checkHistorial().closeLastStatement();
 					ConectorFactory.getBaseActiva().close();
 				} catch (SQLException e) {
+					e.printStackTrace();
 					new DefaultDialog( e.getMessage() );
 				}
 				GestionLibrosController.instancia().close();
